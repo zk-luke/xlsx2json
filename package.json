@@ -1,0 +1,27 @@
+{
+    "name": "xlsx2json",
+    "version": "0.1.0",
+    "private": false,
+    "homepage": "https://github.com/koalaylj/xlsx2json",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/koalaylj/xlsx2json.git"
+    },
+    "bugs": {
+        "url": "https://github.com/koalaylj/xlsx2json/issues"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/koalaylj/xlsx2json#license"
+    }],
+    "keywords": [
+        "xlsx",
+        "excell",
+        "json",
+        "game develope",
+        "mongo"
+    ],
+    "dependencies": {
+        "node-xlsx": "~0.4.0"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "head": 2,
+    "debug": true,
+    "src": ["./**/*.xlsx"],
+    "dest": "json"
+}
