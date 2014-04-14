@@ -69,7 +69,7 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
                         break;
                     case '[{}]':
                         if (cell) {
-
+                            addObjectArrayField(row_obj, col_name[i_col], cell.value);
                         };
                         break;
                 };
@@ -86,19 +86,40 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
     };
 };
 
-function addObjectField(field, key, data) {
-    var obj_array = cell.value.split(';');
-    var temp_obj = {};
+
+function addObjectArrayField(field, key, array) {
+    var obj_array = array.split(',');
+
+    var result = [];
+
     obj_array.forEach(function(element, index, array) {
+        result.push(array2object(element.split(';')));
+    });
+
+    field[key] = result;
+};
+
+/**
+ * 从数组创建对象
+ * 比如 [a:123,b:45] => {'a':123,'b':45}
+ */
+function array2object(array) {
+    var obj_field = array;
+    var result = {};
+    obj_field.forEach(function(element, index, array) {
         var kv = element.split(':');
         if (isNumber(kv[1])) {
             kv[1] = Number(kv[1]);
         } else if (isBoolean(kv[1])) {
             kv[1] = toBoolean(kv[1]);
         };
-        temp_obj[kv[0]] = kv[1];
+        result[kv[0]] = kv[1];
     });
-    field[key] = temp_obj;
+    return result;
+}
+
+function addObjectField(field, key, data) {
+    field[key] = array2object(data.split(';'));
 };
 
 function addBasicArrayField(field, key, array) {
