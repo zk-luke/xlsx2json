@@ -5,17 +5,17 @@ xlsx2json
 
 ## 产生背景
 
-	开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
-	我们的工作流是策划写excel，然后导出json，然后倒入mongo数据库。
+开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
+我们的工作流是策划写excel，然后导出json，然后倒入mongo数据库。
 
-	因为excell是二维的，无法表达mongo document里面数组和嵌套对象结构。
-	导致服务器端只能按照excel结构来设计mongo数据库，
-	只能和mysql等关系型数据库以同样的方式的使用和设计mongo，
-	这样会使设计mongo数据库大大受限并无法使用mongo的某些特性。
+因为excell是二维的，无法表达mongo document里面数组和嵌套对象结构。
+导致服务器端只能按照excel结构来设计mongo数据库，
+只能和mysql等关系型数据库以同样的方式的使用和设计mongo，
+这样会使设计mongo数据库大大受限并无法使用mongo的某些特性。
 
-	有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
-	但是不懂clojure表示压力很大而且有些功能不符合我们的需求，so就搞了这个项目。
-	某些想法也是借鉴了这个项目，在此表示感谢。
+有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
+但是不懂clojure表示压力很大而且有些功能不符合我们的需求，so就搞了这个项目。
+某些想法也是借鉴了这个项目，在此表示感谢。
 
 ## 说明
 * 项目只依赖 `node-xlsx` 项目，解析xlsx文件的。
