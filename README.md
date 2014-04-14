@@ -1,25 +1,28 @@
 xlsx2json
 =========
 
-可以让excel表达复杂的json格式，将excel转成json存入mongo数据库。
+## 作用
+* 让excel表达复杂的json格式
+* 将excel转成json
+* 将json导入mongo数据库。
 
-## 产生背景
-
+## 为什么要做这个项目？
 开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
 我们的工作流是策划写excel，导出json，然后导入mongo数据库。
 
-因为excell是二维的，无法表达mongo document里面数组等复杂结构。
-只能按excel结构来设计mongo数据库，和关系型数据库以同样的方式设计mongo，
-这样会使设计mongo数据库大大受限并无法使用mongo的某些特性。
+因为excel是二维的，无法表达mongo文档里面数组属性等复杂结构。
+按excel结构来设计mongo数据库，和关系型数据库以同样的方式设计mongo，
+会使设计mongo受限并无法使用某些nosql特性。
 
-有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
-但是不懂clojure表示压力很大而且有些功能不符合我们的需求，就搞了这个项目。
-某些想法也是借鉴了这个项目，在此表示感谢。
+网上搜了下,有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
+但是不懂clojure表示压力很大而且有些功能不符合我们的需求。
 
-##使用说明
+基于以上原因，就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，在此表示感谢。
+
+## 使用说明
 * 导出：执行 `node index.js` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 
-### example  test.xlsx(这是一个表格，排版原因，分成两行。)
+## 示例1 test.xlsx(这是一个表格，排版原因，分成两行。)
 
 | id   | desc        | flag   | otherid#[] | words#[]     | map#[]     |
 | ---- | ----------- | ------ | ---------- | ------------ | ---------- |
@@ -32,7 +35,7 @@ xlsx2json
 | a:123;b:45 | id:2;level:30,id:3;level:80   |
 | a:11;b:22  | id:9;level:38,id:17;level:100 |
 
-输出如下
+输出如下：
 
 ```json
 [{
@@ -56,7 +59,7 @@ xlsx2json
     "flag": false,
     "otherid": [3, 5, 8],
     "words": ["shit", "my god"],
-    "map": [false, false],
+    "map": [false, true],
     "data": {
         "a": 11,
         "b": 22
@@ -95,6 +98,11 @@ xlsx2json
   有一个xml存的string，有相应个xml存的sheet。
   通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自定的json数据。
+
+## 补充
+* 实验环境：win7_x64 + nodejs_v0.10.25
+* 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
+* 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
 
 ## 项目当前状态
