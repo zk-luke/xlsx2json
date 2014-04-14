@@ -48,13 +48,22 @@ xlsx2json
 * 关键符号都是半角符号。
 * 数组使用逗号分割。
 
-### example  test.xlsx
+### example  test.xlsx  (一张表，由于排版原因，分成两行)
 
-| 注释 | 描述        | 标识   | 数字数组    | 字符串数组   | 布尔数组   | 对象类型     | 对象数组                      |
-| id   | desc        | flag   | otherid#[]  | words#[]     | map#[]     | data#{}      | hero#[{}]                     |
-| ---- | ----------- | ------ | ----------- | ------------ | ---------- | ------------ | ----------------------------- |
-| 123  | description | true   | 1,2         | 哈哈,呵呵    | true,true  | a:123;b:45   | id:2;level:30,id:3;level:80   |
-| 456  | 描述        | false  | 3,5,8       | shit,my god  | false,true | a:11;b:22    | id:9;level:38,id:17;level:100 |
+| 注释 | 描述        | 标识   | 数字数组    | 字符串数组   | 布尔数组   |
+| id   | desc        | flag   | otherid#[]  | words#[]     | map#[]     |
+| ---- | ----------- | ------ | ----------- | ------------ | ---------- |
+| 123  | description | true   | 1,2         | 哈哈,呵呵    | true,true  |
+| 456  | 描述        | false  | 3,5,8       | shit,my god  | false,true | 
+
+
+| 对象类型     | 对象数组                      |
+| data#{}      | hero#[{}]                     |
+| ------------ | ----------------------------- |
+| a:123;b:45   | id:2;level:30,id:3;level:80   |
+| a:11;b:22    | id:9;level:38,id:17;level:100 |
+
+
 
 输出如下
 
