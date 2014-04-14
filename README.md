@@ -50,10 +50,10 @@ xlsx2json
 
 ### example  test.xlsx
 
-| id    | desc        | flag   | otherid#[]  | words#[]     | map#[]     | data#{}      | hero#[{}]                     |
-| ----- | ----------- | ------ | ----------- | ------------ | ---------- | ------------ | ----------------------------- |
-| 123   | description | true   | 1,2         | 哈哈,呵呵    | true,true  | a:123;b:45   | id:2;level:30,id:3;level:80   |
-| 456   | 描述        | false  | 3,5,8       | shit,my god  | false,true | a:11;b:22    | id:9;level:38,id:17;level:100 |
+| id   | desc        | flag   | otherid#[] | words#[]     | map#[]     | data#{}    | hero#[{}]                     |
+| ---- | ----------- | ------ | ---------- | ------------ | ---------- | ---------- | ----------------------------- |
+| 123  | description | true   | 1,2        | 哈哈,呵呵    | true,true  | a:123;b:45 | id:2;level:30,id:3;level:80   |
+| 456  | 描述        | false  | 3,5,8      | shit,my god  | false,true | a:11;b:22  | id:9;level:38,id:17;level:100 |
 
 输出如下
 
