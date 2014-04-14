@@ -40,7 +40,7 @@ xlsx2json
 ## 表头规则
 * 列是基本数据类型(string,number,boolean)时候，不需要特殊设置。
 * 列是基本类型数组的话 列命名形式  colume#[] ，后面要加#[] 表达这列是基本类型数组。
-* 列是对象的话，命名 colume#{} ,后面要加 #{} 表达这列是对象。(正在开发中)
+* 列是对象的话，命名 colume#{} ,后面要加 #{} 表达这列是对象。
 * 列是对象数组话，命名 colume#[{}] ,后面要加 #[{}] 表达这列是对象数组。(正在开发中)
 
 
@@ -50,30 +50,37 @@ xlsx2json
 
 ### example  test.xlsx
 
-| id     | desc           | flag    | otherid#[]  | words#[]     | map#[]                  |
-| ------ | -------------- | ------- | ----------- | ------------ | ----------------------- |
-| 123    | description    | true    | 1,2         | 哈哈,呵呵    | true,true,false,true    |
-| 456    | 描述           | false   | 3,5,8       | shit,my god  | false,false,true,false  |
+| id   | desc        | flag   | otherid#[]  | words#[]     | map#[]     | data#{}      |
+| ---- | ----------- | ------ | ----------- | ------------ | ---------- | ------------ |
+| 123  | description | true   | 1,2         | 哈哈,呵呵    | true,true  | a:123;b:45   |
+| 456  | 描述        | false  | 3,5,8       | shit,my god  | false,true | a:11;b:22    |
 
 输出如下
 
 ```json
-[
-  {
+[{
     "id": 123,
     "desc": "description",
     "flag": true,
-    "otherid": [1,2],
-    "words": ["哈哈","呵呵"]
-  },
-  {
+    "otherid": [1, 2],
+    "words": ["哈哈", "呵呵"],
+    "map": ["true", "true"],
+    "data": {
+        "a": 123,
+        "b": 45
+    }
+}, {
     "id": 456,
     "desc": "描述",
     "flag": false,
-    "otherid": [3,5,8],
-    "words": ["shit","my god"]
-  }
-]
+    "otherid": [3, 5, 8],
+    "words": ["shit", "my god"],
+    "map": ["false", "false"],
+    "data": {
+        "a": 11,
+        "b": 22
+    }
+}]
 ```
 
 ## 配置文件 config.json
@@ -89,5 +96,5 @@ xlsx2json
 
 ## 项目当前状态
 * 目前仅仅让excel里面能够表达基本数据类型(number,boolean,string)，和基本数据类型的数组([number],[boolean],[string])。
-* 进行中的功能：增加对象支持，增加对象数组支持。完善配置文件功能。
+* 进行中的功能：增加对象数组支持。完善配置文件功能。
 * 将json导入mongo中。完善工作流。

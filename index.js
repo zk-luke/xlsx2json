@@ -51,35 +51,26 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
             for (var i_col = 0; i_col < sheet.maxCol; i_col++) {
                 var cell = row[i_col];
 
-                var type = col_type[i_col].toLowerCase();
-
+                var type = col_type[i_col].toLowerCase().trim();
+                // console.log("type:", type);
                 switch (type) {
-                    case 'basic':
+                    case 'basic': // number string boolean
                         row_obj[col_name[i_col]] = cell.value;
                         break;
-                    case 'object':
-                        break;
-                    case '[]':
-                    case '[basic]':
-                        if (cell.value) {
-                            var basic_array = cell.value.split(',');
-                            var temp_array = [];
-                            if (isNumberArray(basic_array)) {
-                                basic_array.forEach(function(element, index, array) {
-                                    temp_array.push(Number(element));
-                                });
-                            } else if (isBooleanArray(basic_array)) {
-                                basic_array.forEach(function(element, index, array) {
-                                    temp_array.push(element.toString().toLowerCase() === 'true');
-                                });
-                            } else { //字符串数组
-                                temp_array = basic_array;
-                            };
-                            // console.log("basic_array", temp_array + "|||" + cell.value);
-                            row_obj[col_name[i_col]] = temp_array;
+                    case '{}':
+                        if (cell) {
+                            addObjectField(row_obj, col_name[i_col], cell.value);
                         };
                         break;
-                    case '[bool]':
+                    case '[]': //[number] [boolean] [string]
+                        if (cell) {
+                            addBasicArrayField(row_obj, col_name[i_col], cell.value);
+                        };
+                        break;
+                    case '[{}]':
+                        if (cell) {
+
+                        };
                         break;
                 };
             };
@@ -87,10 +78,60 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
             output.push(row_obj);
         };
 
-        console.log(JSON.stringify(output));
+        output = JSON.stringify(output);
+        fs.writeFile('./buff.json', output, function(err) {
+            if (err) throw err;
+            console.log('saved:', output);
+        });
     };
 };
 
+function addObjectField(field, key, data) {
+    var obj_array = cell.value.split(';');
+    var temp_obj = {};
+    obj_array.forEach(function(element, index, array) {
+        var kv = element.split(':');
+        if (isNumber(kv[1])) {
+            kv[1] = Number(kv[1]);
+        } else if (isBoolean(kv[1])) {
+            kv[1] = toBoolean(kv[1]);
+        };
+        temp_obj[kv[0]] = kv[1];
+    });
+    field[key] = temp_obj;
+};
+
+function addBasicArrayField(field, key, array) {
+    var basic_array = array.split(',');
+    var result = [];
+    if (isNumberArray(basic_array)) {
+        basic_array.forEach(function(element, index, array) {
+            result.push(Number(element));
+        });
+    } else if (isBooleanArray(basic_array)) {
+        basic_array.forEach(function(element, index, array) {
+            result.push(toBoolean(element));
+        });
+    } else { //字符串数组
+        result = basic_array;
+    };
+    // console.log("basic_array", result + "|||" + cell.value);
+    field[key] = result;
+};
+
+/**
+ * 将一个true false 形式的字符串或者其他什么的变量转成boolean
+ *
+ * 不能直接用Boolean构造，任何非空的字符串都会被当作 true，具体见如下几种情况。
+ * var myBool = Boolean("false");  // == true
+ * var myBool = !!"false";  // == true
+ * myFalse = new Boolean(false);   // initial value of false
+ * g = Boolean(myFalse);       // initial value of true
+ * 当比较的变量是不同的数据类型时候 使用 === 来代替 ==。
+ */
+function toBoolean(value) {
+    return value.toString().toLowerCase() === 'true'
+};
 
 /**
  * 判断一个数组是不是bool数组
@@ -128,7 +169,7 @@ function isBoolean(value) {
         return true;
     };
 
-    var b = value.toString().toLowerCase();
+    var b = value.toString().trim().toLowerCase();
 
     return b === 'true' || b === 'false';
 };
