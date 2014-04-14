@@ -27,13 +27,6 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
                 type = temp[1];
             };
 
-            /**
-             * 支持的类型
-             * 1. basic : number,bool,string
-             * 2. object : 自定义数据类型
-             * 3. []|[basic] : 普通数据类型数组
-             * 4. [object] : 对象数组
-             */
             col_type.push(type);
             col_name.push(name);
         };
@@ -86,7 +79,9 @@ for (var i_sheet = 0; i_sheet < excel.worksheets.length; i_sheet++) {
     };
 };
 
-
+/**
+ * 拼装对象数组
+ */
 function addObjectArrayField(field, key, array) {
     var obj_array = array.split(',');
 
@@ -118,10 +113,17 @@ function array2object(array) {
     return result;
 }
 
+/**
+ * 拼装对象
+ */
 function addObjectField(field, key, data) {
     field[key] = array2object(data.split(';'));
 };
 
+
+/**
+ * 拼装普通数组
+ */
 function addBasicArrayField(field, key, array) {
     var basic_array = array.split(',');
     var result = [];
