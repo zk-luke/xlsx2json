@@ -8,7 +8,7 @@ xlsx2json
 	开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
 	我们的工作流是策划写excel，然后导出json，然后倒入mongo数据库。
 
-	因为excell是二维的，无法表达mongo document里面数组字段和嵌套对象结构。
+	因为excell是二维的，无法表达mongo document里面数组和嵌套对象结构。
 	导致服务器端只能按照excel结构来设计mongo数据库，
 	只能和mysql等关系型数据库以同样的方式的使用和设计mongo，
 	这样会使设计mongo数据库大大受限并无法使用mongo的某些特性。
@@ -22,7 +22,7 @@ xlsx2json
 * 其实xlsx就是个zip文件，解压出来都是xml。
   有一个xml存的string，有相应个xml存的sheet。
   只要解析xml就能解析出excel数据了，这个就是`node-xlsx` 项目做的工作。
-* 我利用 `node-xlsx` 解析xslx文件，拼装json数据。
+* 只需利用 `node-xlsx` 解析xslx文件，拼装json数据。
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
 
 
@@ -30,7 +30,7 @@ xlsx2json
 * number 数字类型
 * boolean  布尔
 * string 字符串
-* object 对象 {a:1,b:false,c:[1,3]}
+* object 对象 {a:1,b:false} // 对象内暂时不能有数组，也不能对象嵌套对象，此功能正在加入。
 * number-array  数字数组
 * boolean-array  布尔数组
 * string-array  字符串数组
@@ -48,7 +48,7 @@ xlsx2json
 * 关键符号都是半角符号。
 * 数组使用逗号分割。
 
-### example  test.xlsx  (一张表，由于排版原因，分成两行)
+### example  test.xlsx
 
 | id    | desc        | flag   | otherid#[]  | words#[]     | map#[]     | data#{}      | hero#[{}]                     |
 | ----- | ----------- | ------ | ----------- | ------------ | ---------- | ------------ | ----------------------------- |
