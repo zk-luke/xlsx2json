@@ -10,7 +10,7 @@ xlsx2json
 
 因为excell是二维的，无法表达mongo document里面数组和嵌套对象结构。
 导致服务器端只能按照excel结构来设计mongo数据库，
-只能和mysql等关系型数据库以同样的方式的使用和设计mongo，
+只能和mysql等关系型数据库以同样的方式使用和设计mongo，
 这样会使设计mongo数据库大大受限并无法使用mongo的某些特性。
 
 有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
@@ -48,12 +48,20 @@ xlsx2json
 * 关键符号都是半角符号。
 * 数组使用逗号分割。
 
-### example  test.xlsx
+### example  test.xlsx  (这是一个表格，排版原因，分成两行。)
 
-| id   | desc        | flag   | otherid#[] | words#[]     | map#[]     | data#{}    | hero#[{}]                     |
-| ---- | ----------- | ------ | ---------- | ------------ | ---------- | ---------- | ----------------------------- |
-| 123  | description | true   | 1,2        | 哈哈,呵呵    | true,true  | a:123;b:45 | id:2;level:30,id:3;level:80   |
-| 456  | 描述        | false  | 3,5,8      | shit,my god  | false,true | a:11;b:22  | id:9;level:38,id:17;level:100 |
+| id   | desc        | flag   | otherid#[] | words#[]     | map#[]     |
+| ---- | ----------- | ------ | ---------- | ------------ | ---------- |
+| 123  | description | true   | 1,2        | 哈哈,呵呵    | true,true  |
+| 456  | 描述        | false  | 3,5,8      | shit,my god  | false,true |
+
+
+| data#{}    | hero#[{}]                     |
+| ---------- | ----------------------------- |
+| a:123;b:45 | id:2;level:30,id:3;level:80   |
+| a:11;b:22  | id:9;level:38,id:17;level:100 |
+
+
 
 输出如下
 
