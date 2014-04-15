@@ -23,9 +23,11 @@ xlsx2json
 需要将mongo的bin目录和nodejs安装目录放到环境变量下。
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * 导出json：执行 `node index.js [-e|--export]` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+或者直接双击`export.bat`。
 * 导入到mongo：先要按需修改下 index.js里面 数据库连接配置 `db`，
 然后执行`node index.js [-i|--import]`即可将./json下所有的json文件导入到数据库中。
 collection的名字就是json文件的名字。
+或者直接双击`import.bat`。
 
 
 示例1 test.xlsx(这是一个表格，排版原因，分成两行。)
