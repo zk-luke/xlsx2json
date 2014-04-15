@@ -20,7 +20,13 @@ xlsx2json
 基于以上原因，就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，在此表示感谢。
 
 ## 使用说明
-* 导出：执行 `node index.js` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+需要将mongo的bin目录和nodejs安装目录放到环境变量下。
+* 查看帮助：执行`node index.js -h` 查看使用帮助；
+* 导出json：执行 `node index.js [-e|--export]` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+* 导入到mongo：先要按需修改下 index.js里面 数据库连接配置 `db`，
+然后执行`node index.js [-i|--import]`即可将./json下所有的json文件导入到数据库中。
+collection的名字就是json文件的名字。
+
 
 示例1 test.xlsx(这是一个表格，排版原因，分成两行。)
 
@@ -105,7 +111,6 @@ xlsx2json
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
 
-## 项目当前状态
-* 进行中的功能：增加嵌套对象和嵌套数组支持。
+## 项目当前进行的工作
+* 增加嵌套对象和嵌套数组支持。
 * 添加测试用例。
-* 将json导入mongo中。完善工作流。
