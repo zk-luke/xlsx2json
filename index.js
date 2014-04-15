@@ -102,6 +102,8 @@ function importMongo() {
 
         if (commandLine.indexOf('--noauth') === -1) {
             uri = uri.replace("${user}", db.user).replace("${pwd}", db.pwd);
+        } else {
+            uri = uri.replace("-u ${user} -p ${pwd}", "");
         };
 
         filtered.forEach(function(element, index, array) {
