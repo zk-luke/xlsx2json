@@ -25,7 +25,7 @@ xlsx2json
 * 导出json：执行 `node index.js [-e|--export]` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 或者直接双击`export.bat`。
 * json导入mongo：先要修改下`index.js`里数据库配置 `db`,
-执行`node index.js [-i|--import]`即可将./json下所有的json文件导入到数据库中。
+执行`node index.js -i|--import`即可将./json下所有的json文件导入到数据库中。
 collection的名字就是json文件的名字。
 或者直接双击`import.bat`。
 
