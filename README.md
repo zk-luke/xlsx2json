@@ -10,11 +10,10 @@ xlsx2json
 开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
 我们的工作流是策划写excel，导出json，然后导入mongo数据库。
 
-因为excel是二维的，无法表达mongo文档里面数组属性等复杂结构。
-按excel结构来设计mongo数据库，和关系型数据库以同样的方式设计mongo，
-会使设计mongo受限并无法使用某些nosql特性。
+因为excel是二维的，无法表达mongo文档里面数组和subdocument等复杂结构。
+按excel结构来设计mongo，会使mongo受限并无法使用某些特性。
 
-网上搜了下,有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
+有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
 但是不懂clojure表示压力很大而且有些功能不符合我们的需求。
 
 基于以上原因，就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，在此表示感谢。
@@ -83,7 +82,7 @@ collection的名字就是json文件的名字。
 * number 数字类型
 * boolean  布尔
 * string 字符串
-* object 对象 {a:1,b:false} // 对象内暂时不能有数组，也不能对象嵌套对象，此功能正在加入。
+* object 对象 {a:1,b:false} // 不支持对象内有数组以及对象嵌套对象，防止表格过度复杂。
 * number-array  数字数组
 * boolean-array  布尔数组
 * string-array  字符串数组
@@ -112,7 +111,9 @@ collection的名字就是json文件的名字。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
+* 我们 mongo + excel 的项目会一直使用它，会一直维护。
 
 ## 项目当前进行的工作
-* 增加嵌套对象和嵌套数组支持。
 * 添加测试用例。
+* 招募contributor
+* 接收好的建议
