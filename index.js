@@ -23,32 +23,9 @@ var db = {
     "pwd": "princess"
 };
 
-var commands = {
-    "--help": {
-        "alias": ["-h", "/?"],
-        "desc": "command line user manual.",
-        "action": showHelp
-    },
-    "--export": {
-        "alias": ["-e"],
-        "desc": "export excel to json.",
-        "action": exportJson,
-        "default": true
-    },
-    "--import": {
-        "alias": ["-i"],
-        "desc": "import json to mongo.",
-        "action": importMongo
-    },
-    "--noauth": {
-        "alias": ["-na"],
-        "desc": "import json to mongo without auth(do not need username and password)."
-    }
-};
-
-var keys = []; //缓存命令的key ("--help"...)
-var alias_map = {}; // 别名 -> key 映射
-var commandLine = [];
+var keys = []; //缓存commands的key ("--help"...)
+var alias_map = {}; // alias_name -> name 映射
+var parsed_cmds = []; //解析命令行出来的命令
 
 // process.on('uncaughtException', function(err) {
 //     console.log('shit 出错啦: ' + err);
@@ -68,8 +45,11 @@ var commandLine = [];
         });
     };
 
-    parseCommandLine(process.argv);
+    parsed_cmds = parseCommandLine(process.argv);
 
+    parsed_cmds.forEach(function(element, index, array) {
+        exec(element);
+    });
 })();
 
 
@@ -83,7 +63,7 @@ function exportJson() {
 /**
  * 导入数据库
  */
-function importMongo() {
+function importMongo(args) {
 
     var uri = 'mongoimport -h ${host} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
 
@@ -100,7 +80,7 @@ function importMongo() {
 
         uri = uri.replace("${host}", db.host).replace("${database}", db.database);
 
-        if (commandLine.indexOf('--noauth') === -1) {
+        if (parsed_cmds.indexOf('--noauth') === -1) {
             uri = uri.replace("${user}", db.user).replace("${pwd}", db.pwd);
         } else {
             uri = uri.replace("-u ${user} -p ${pwd}", "");
@@ -146,46 +126,85 @@ function showHelp() {
 /**************************** 命令行解析 *********************************/
 
 /**
- *  执行命令
+ * 命令支持的参数
  */
-function exec(cmd_name, args) {
-    if (typeof commands[cmd_name].action === "function") {
-        commands[cmd_name].action(args);
+var commands = {
+    "--help": {
+        "alias": ["-h"],
+        "desc": "command line user manual.",
+        "action": showHelp
+    },
+    "--export": {
+        "alias": ["-e"],
+        "desc": "export excel to json.",
+        "action": exportJson,
+        "default": true
+    },
+    "--import": {
+        "alias": ["-i"],
+        "desc": "import json to mongo.",
+        "action": importMongo
+    },
+    "--noauth": {
+        "alias": ["-na"],
+        "desc": "import json to mongo without auth(do not need username and password)."
+    }
+};
+
+
+/**
+ * 执行一条命令
+ */
+function exec(cmd) {
+    if (typeof cmd.action === "function") {
+        cmd.action(cmd.args);
     };
 };
+
 
 /**
  * 解析命令行参数
  */
 function parseCommandLine(args) {
 
+    var parsed_cmds = [];
+
     if (args.length <= 2) {
-        exec(defaultCommand());
+        parsed_cmds.push(defaultCommand());
     } else {
-        commandLine = args.slice(2);
 
-        //去重
-        var temp = {};
-        commandLine.forEach(function(element, index, array) {
-            temp[element] = element;
-        });
+        var cli = args.slice(2);
 
-        commandLine = [];
-        for (var p in temp) {
-            commandLine.push(p);
-        };
+        var pos = 0;
+        var cmd;
 
-        commandLine.forEach(function(element, index, array) {
+        cli.forEach(function(element, index, array) {
+
+            //将别名替换为正式命令名字
             if (element.indexOf('--') === -1 && element.indexOf('-') === 0) {
-                commandLine[index] = alias_map[element];
-                // element = alias_map[element];
-            };
-        });
+                cli[index] = alias_map[element];
+            }
 
-        commandLine.forEach(function(element, index, array) {
-            exec(commandLine[index]);
+            //解析命令和相应的参数
+            if (cli[index].indexOf('--') === -1) {
+                cmd.args.push(cli[index]);
+            } else {
+
+                if (keys[cli[index]] == "undefined") {
+                    throw new Error("not support command: " + cli[index]);
+                };
+
+                pos = index;
+                cmd = commands[cli[index]];
+                if (typeof cmd.args == 'undefined') {
+                    cmd.args = [];
+                };
+                parsed_cmds.push(cmd);
+            }
         });
     };
+
+    return parsed_cmds;
 };
 
 /**
@@ -198,14 +217,14 @@ function defaultCommand() {
 
     for (var p in commands) {
         if (commands[p]["default"]) {
-            return p;
+            return commands[p];
         };
     };
 
     if (keys["--help"]) {
-        return "--help";
+        return commands["--help"];
     } else {
-        return keys[0];
+        return commands[keys[0]];
     };
 };
 
