@@ -24,9 +24,9 @@
         "node": "~0.10.25"
     },
     "dependencies": {
-        "node-xlsx": "~0.4.0"
+        "node-xlsx": "~0.4.0",
+        "minimatch": "~0.2.14",
+        "glob": "3.2.9"
     },
-    "devDependencies": {
-        "nodeunit": ">= 0.7.4"
-    }
+    "devDependencies": {}
 }
