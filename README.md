@@ -21,12 +21,11 @@ xlsx2json
 ## 使用说明
 需要将mongo的bin目录和nodejs安装目录放到环境变量下。
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
-* 导出json：执行 `node index.js [-e|--export]` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-或者直接双击`export.bat`。
+* 导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 * json导入mongo：先要修改下`index.js`里数据库配置 `db`,
-执行`node index.js -i|--import`即可将./json下所有的json文件导入到数据库中。
+双击`import.bat`即可将./json下所有的json文件导入到数据库中。
 collection的名字就是json文件的名字。
-或者直接双击`import.bat`。
+* 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
 
 
 示例1 test.xlsx(这是一个表格，排版原因，分成两行。)
@@ -82,7 +81,7 @@ collection的名字就是json文件的名字。
 * number 数字类型
 * boolean  布尔
 * string 字符串
-* object 对象 {a:1,b:false} // 不支持对象内有数组以及对象嵌套对象，防止表格过度复杂。
+* object 对象  // 不支持对象内有数组以及对象嵌套对象，防止表格过度复杂。
 * number-array  数字数组
 * boolean-array  布尔数组
 * string-array  字符串数组
