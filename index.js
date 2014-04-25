@@ -183,11 +183,11 @@ function showHelp() {
     };
 
     usage += "\nexamples: ";
-    usage += "\n\n $node index.js--export\n\tthis will export all files configed to json.";
-    usage += "\n\n $node index.js--export. / excel / foo.xlsx. / excel / bar.xlsx\n\tthis will export foo and bar xlsx files.";
-    usage += "\n\n $node index.js--import\n\tthis will import all configed json files.";
-    usage += "\n\n $node index.js--import. / json / foo.json. / excel / bar.json\n\tthis will export foo and bar json files.";
-    usage += "\n\n $node index.js--import--noauth\n\t db do not need auth(do not need db user & pwd).";
+    usage += "\n\n $node index.js --export\n\tthis will export all files configed to json.";
+    usage += "\n\n $node index.js --export. / excel / foo.xlsx. / excel / bar.xlsx\n\tthis will export foo and bar xlsx files.";
+    usage += "\n\n $node index.js --import\n\tthis will import all configed json files.";
+    usage += "\n\n $node index.js --import. / json / foo.json. / excel / bar.json\n\tthis will export foo and bar json files.";
+    usage += "\n\n $node index.js --import --noauth\n\t db do not need auth(do not need db user & pwd).";
 
     console.log(usage);
 };
