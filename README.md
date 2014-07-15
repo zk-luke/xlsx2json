@@ -16,15 +16,37 @@ xlsx2json
 有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
 但是不懂clojure表示压力很大而且有些功能不符合我们的需求。
 
-基于以上原因，就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，在此表示感谢。
+so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，表示感谢。
 
 ## 使用说明
-需要将mongo的bin目录和nodejs安装目录放到环境变量下。
+首次使用需要配置index.js里面的config变量。
+
+```json
+var config = {
+    "head": 2, //表头所在的行,第一行可能为注释。
+    "export": { //excel目录和json目录
+        "from": "./excel/**/[^~$]*.xlsx",
+        "to": "./json"
+    },
+    "import": { //数据库相关信息
+        "to": {
+            "host": "127.0.0.1",
+            "database": "db_name",
+            "user": "username",
+            "port": 27017,
+            "pwd": "password"
+        }
+    }
+};
+```
+然后需要将mongo的bin目录和nodejs安装目录放到环境变量下。
+
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
-* 导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-* json导入mongo：先要修改下`index.js`里数据库配置 `db`,
-双击`import.bat`即可将./json下所有的json文件导入到数据库中。
+* excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+* json导入mongo：双击`import.bat`即可将./json下所有的json文件导入到数据库中。
 collection的名字就是json文件的名字。
+或者自己手动导入：
+`mongoimport -h 127.0.0.1 --port 27017 -u username -p password -d db_name -c collection_name xxx.json --jsonArray`
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
 
 
@@ -100,9 +122,3 @@ collection的名字就是json文件的名字。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
-* 我们 mongo + excel 的项目会一直使用它，会一直维护。
-
-## 项目当前进行的工作
-* 添加测试用例。
-* 招募contributor
-* 接收好的建议

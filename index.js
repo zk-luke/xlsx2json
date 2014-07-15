@@ -8,6 +8,30 @@ var glob = require("glob");
 
 
 /**
+ * 配置文件
+ * 如果没有用授权方式启动mongo 不需要填 user & pwd 并且命令行参数要加 --noauth
+   比如：node index.js --import --noauth
+ */
+var config = {
+    "head": 2, //表头所在的行
+    "export": { //excel目录和json目录
+        "from": "./excel/**/[^~$]*.xlsx",
+        "to": "./json"
+    },
+    "import": { //数据库相关信息
+        // "from": "./json/**/*.json",
+        "to": {
+            "host": "127.0.0.1",
+            "database": "princess",
+            "user": "princess",
+            "port": 27010,
+            "pwd": "pwd"
+        }
+    }
+};
+
+
+/**
  * 命令支持的参数
  */
 var commands = {
@@ -30,30 +54,6 @@ var commands = {
     "--noauth": {
         "alias": ["-na"],
         "desc": "import json to mongo without auth(do not need username and password)."
-    }
-};
-
-
-/**
- * 配置文件
- * 如果没有用授权方式启动mongo 不需要填 user & pwd 并且命令行参数要加 --noauth
-   比如：node index.js --import --noauth
- */
-var config = {
-    "head": 2, //表头所在的行
-    "export": { //excel目录和json目录
-        "from": "./excel/**/[^~$]*.xlsx",
-        "to": "./json"
-    },
-    "import": { //数据库相关信息
-        // "from": "./json/**/*.json",
-        "to": {
-            "host": "192.168.0.155",
-            "database": "princess",
-            "user": "princess",
-            "port": 27010,
-            "pwd": "Passw0rd@game95.com"
-        }
     }
 };
 
