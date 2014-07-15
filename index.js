@@ -48,10 +48,11 @@ var config = {
     "import": { //数据库相关信息
         // "from": "./json/**/*.json",
         "to": {
-            "host": "127.0.0.1",
-            "database": "test",
+            "host": "192.168.0.155",
+            "database": "princess",
             "user": "princess",
-            "pwd": "princess"
+            "port": 27010,
+            "pwd": "Passw0rd@game95.com"
         }
     }
 };
@@ -101,7 +102,7 @@ function exportJson(args) {
                 throw err;
             };
 
-            console.log(files);
+            //console.log(files);
 
             files.forEach(function(element, index, array) {
                 xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.export.to), config.head);
@@ -123,7 +124,7 @@ function exportJson(args) {
  */
 function importMongo(args) {
 
-    var uri = 'mongoimport -h ${host} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
+    var uri = 'mongoimport -h ${host} --port ${port} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
 
     var files_to_import = args;
 
@@ -138,13 +139,15 @@ function importMongo(args) {
 
     var db = config.import.to;
 
-    uri = uri.replace("${host}", db.host).replace("${database}", db.database);
+    uri = uri.replace("${host}", db.host).replace("${database}", db.database).replace("${port}", db.port);
 
-    if (keys.indexOf('--noauth') === -1) {
+    if (parsed_cmds.indexOf('--noauth') === -1) {
         uri = uri.replace("${user}", db.user).replace("${pwd}", db.pwd);
     } else {
         uri = uri.replace("-u ${user} -p ${pwd}", "");
     };
+
+    console.log("uri:" + uri + "keys.indexOf('--noauth'):" + keys.indexOf('--noauth') + "," + keys);
 
     files_to_import.forEach(function(element, index, array) {
         if (path.extname(element) === '.json') {
@@ -186,7 +189,7 @@ function showHelp() {
     usage += "\n\n $node index.js --export\n\tthis will export all files configed to json.";
     usage += "\n\n $node index.js --export ./excel/foo.xlsx ./excel/bar.xlsx\n\tthis will export foo and bar xlsx files.";
     usage += "\n\n $node index.js --import\n\tthis will import all configed json files.";
-    usage += "\n\n $node index.js --import ./json/foo.json. /excel/bar.json\n\tthis will export foo and bar json files.";
+    usage += "\n\n $node index.js --import ./json/foo.json ./excel/bar.json\n\tthis will export foo and bar json files.";
     usage += "\n\n $node index.js --import --noauth\n\t db do not need auth(do not need db user & pwd).";
 
     console.log(usage);

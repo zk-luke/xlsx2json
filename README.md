@@ -28,18 +28,8 @@ collection的名字就是json文件的名字。
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
 
 
-示例1 test.xlsx(这是一个表格，排版原因，分成两行。)
-
-| id   | desc        | flag   | otherid#[] | words#[]     | map#[]     |
-| ---- | ----------- | ------ | ---------- | ------------ | ---------- |
-| 123  | description | true   | 1,2        | 哈哈,呵呵    | true,true  |
-| 456  | 描述        | false  | 3,5,8      | shit,my god  | false,true |
-
-
-| data#{}    | hero#[{}]                     |
-| ---------- | ----------------------------- |
-| a:123;b:45 | id:2;level:30,id:3;level:80   |
-| a:11;b:22  | id:9;level:38,id:17;level:100 |
+#### 示例1 test.xlsx
+![test.xlsx](http://img3.douban.com/view/photo/photo/public/p2180848214.jpg)
 
 输出如下：
 
