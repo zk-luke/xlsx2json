@@ -1,0 +1,17 @@
+{
+    "xlsx": {
+        "head": 2,
+        "src": "./excel/**/[^~$]*.xlsx",
+        "dest": "./json"
+    },
+
+    "mongoimport": "D:\\develop\\mongodb\\bin\\mongoimport.exe",
+
+    "db": {
+        "host": "127.0.0.1",
+        "database": "princess",
+        "user": "princess",
+        "port": 27010,
+        "pwd": "pwd"
+    }
+}

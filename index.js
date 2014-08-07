@@ -4,32 +4,8 @@ var xlsx = require('./lib/xlsx-to-json.js');
 var path = require('path');
 var shell = require('child_process');
 var fs = require('fs');
-var glob = require("glob");
-
-
-/**
- * 配置文件
- * 如果没有用授权方式启动mongo 不需要填 user & pwd 并且命令行参数要加 --noauth
-   比如：node index.js --import --noauth
- */
-var config = {
-    "head": 2, //表头所在的行
-    "export": { //excel目录和json目录
-        "from": "./excel/**/[^~$]*.xlsx",
-        "to": "./json"
-    },
-    "import": { //数据库相关信息
-        // "from": "./json/**/*.json",
-        "to": {
-            "host": "127.0.0.1",
-            "database": "princess",
-            "user": "princess",
-            "port": 27010,
-            "pwd": "pwd"
-        }
-    }
-};
-
+var glob = require('glob');
+var config = require('./config.json');
 
 /**
  * 命令支持的参数
@@ -61,9 +37,9 @@ var keys = []; //缓存commands的key ("--help"...)
 var alias_map = {}; // alias_name -> name 映射
 var parsed_cmds = []; //解析命令行出来的命令
 
-// process.on('uncaughtException', function(err) {
-//     console.log('shit 出错啦: ' + err);
-// });
+process.on('uncaughtException', function(err) {
+    console.log('shit 出错啦: ' + err);
+});
 
 /**
  * 初始化
@@ -91,28 +67,26 @@ var parsed_cmds = []; //解析命令行出来的命令
 
 /**
  * 导出json
- * args: --export 命令行参数 excel文件列表，如果为空，则按照config.export.from导出。
+ * args: --export 命令行参数 excel文件列表，如果为空，则按照config.xlsx.src导出。
  */
 function exportJson(args) {
 
     if (typeof args === 'undefined' || args.length == 0) {
-        glob(config.export.from, function(err, files) {
+        glob(config.xlsx.src, function(err, files) {
             if (err) {
-                console.error("config.export.from match error:", err);
+                console.error("exportJson error:", err);
                 throw err;
             };
 
-            //console.log(files);
-
             files.forEach(function(element, index, array) {
-                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.export.to), config.head);
+                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head);
             });
 
         })
     } else {
         if (args instanceof Array) {
             args.forEach(function(element, index, array) {
-                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.export.to), config.head);
+                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head);
             });
         };
     }
@@ -124,20 +98,18 @@ function exportJson(args) {
  */
 function importMongo(args) {
 
-    var uri = 'mongoimport -h ${host} --port ${port} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
+    var uri = config.mongoimport + ' -h ${host} --port ${port} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
 
     var files_to_import = args;
 
     if (typeof args === 'undefined' || args.length == 0) {
-        files_to_import = fs.readdirSync(config.export.to);
+        files_to_import = fs.readdirSync(config.xlsx.dest);
         files_to_import.forEach(function(element, index, array) {
-            array[index] = path.join(config.export.to, element);
+            array[index] = path.join(config.xlsx.dest, element);
         });
     }
 
-    console.log("files_to_import", files_to_import);
-
-    var db = config.import.to;
+    var db = config.db;
 
     uri = uri.replace("${host}", db.host).replace("${database}", db.database).replace("${port}", db.port);
 
@@ -147,7 +119,7 @@ function importMongo(args) {
         uri = uri.replace("-u ${user} -p ${pwd}", "");
     };
 
-    console.log("uri:" + uri + "keys.indexOf('--noauth'):" + keys.indexOf('--noauth') + "," + keys);
+    // console.log("uri:" + uri + "keys.indexOf('--noauth'):" + keys.indexOf('--noauth') + "," + keys);
 
     files_to_import.forEach(function(element, index, array) {
         if (path.extname(element) === '.json') {

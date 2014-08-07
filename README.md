@@ -19,27 +19,28 @@ xlsx2json
 so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，表示感谢。
 
 ## 使用说明
-首次使用需要配置index.js里面的config变量。
+首次使用需要配置config.json
 
 ```json
-var config = {
-    "head": 2, //表头所在的行,第一行可能为注释。
-    "export": { //excel目录和json目录
-        "from": "./excel/**/[^~$]*.xlsx",
-        "to": "./json"
+{
+    "xlsx": {
+        "head": 2,//表头所在的行，第一行可以是注释，第二行是表头。
+        "src": "./excel/**/[^~$]*.xlsx", //xlsx文件 glob配置风格
+        "dest": "./json"    //导出的json存放的位置
     },
-    "import": { //数据库相关信息
-        "to": {
-            "host": "127.0.0.1",
-            "database": "db_name",
-            "user": "username",
-            "port": 27017,
-            "pwd": "password"
-        }
+
+    "mongoimport": "D:\\develop\\mongodb\\bin\\mongoimport.exe",
+
+    "db": { //json要导入的数据库的配置，如果没有用户名密码，导入时候命令行加 --noauth
+        "host": "127.0.0.1",
+        "database": "princess",
+        "user": "princess",
+        "port": 27010,
+        "pwd": "pwd"
     }
-};
+}
 ```
-然后需要将mongo的bin目录和nodejs安装目录放到环境变量下。
+然后需要将nodejs安装目录放到环境变量下。
 
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
