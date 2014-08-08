@@ -5,13 +5,13 @@
         "dest": "./json"
     },
 
-    "mongoimport": "D:\\develop\\mongodb\\bin\\mongoimport.exe",
+    "mongoimport": ".\\bin\\mongoimport.exe",
 
     "db": {
-        "host": "127.0.0.1",
+        "host": "192.168.0.155",
         "database": "princess",
         "user": "princess",
         "port": 27010,
-        "pwd": "pwd"
+        "pwd": "xxx"
     }
 }

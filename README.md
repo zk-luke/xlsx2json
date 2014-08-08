@@ -29,7 +29,7 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
         "dest": "./json"    //导出的json存放的位置
     },
 
-    "mongoimport": "D:\\develop\\mongodb\\bin\\mongoimport.exe",
+    "mongoimport": ".\\bin\\mongoimport.exe",
 
     "db": { //json要导入的数据库的配置，如果没有用户名密码，导入时候命令行加 --noauth
         "host": "127.0.0.1",
@@ -40,7 +40,9 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
     }
 }
 ```
-然后需要将nodejs安装目录放到环境变量下。
+
+注：node & mongoimport 命令用的是.\bin下面的exe。
+
 
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
