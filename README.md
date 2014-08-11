@@ -41,7 +41,7 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
 }
 ```
 
-注：node & mongoimport 命令用的是.\bin下面的exe。
+注：node & mongoimport 命令用的是.\bin下面的exe。node版本是0.10.26。mongoimport版本是2.6。
 
 
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
