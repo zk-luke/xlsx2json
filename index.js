@@ -37,9 +37,9 @@ var keys = []; //缓存commands的key ("--help"...)
 var alias_map = {}; // alias_name -> name 映射
 var parsed_cmds = []; //解析命令行出来的命令
 
-process.on('uncaughtException', function(err) {
-    console.log('shit 出错啦: ' + err);
-});
+// process.on('uncaughtException', function(err) {
+//     console.log('shit 出错啦: ' + err);
+// });
 
 /**
  * 初始化
