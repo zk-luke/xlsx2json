@@ -71,7 +71,7 @@ collection的名字就是json文件的名字。
         "b": 45
     },
     "hero": [
-      {"id": 2,"level": 30}, 
+      {"id": 2,"level": 30},
       {"id": 3,"level": 80}
     ]
 }, {
@@ -128,3 +128,8 @@ collection的名字就是json文件的名字。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
+
+## 已知BUG
+* =B3 这种公式如果引用的字符串，会到出来null。(node-xlsx bug)
+* 对象数组列，如果对象里面有属性是数字类型，并且数字有格式(颜色等，背景色没事儿)会导致解析出错。(node-xlsx bug)
+* 列格式如果是日期，导出来的是格林尼治时间，列设置成字符串可解决此问题。(node-xlsx bug)
