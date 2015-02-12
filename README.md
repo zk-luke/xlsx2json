@@ -12,7 +12,7 @@ xlsx2json
 
 so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
-## 使用说明
+### 使用说明
 首次使用需要配置config.json
 
 ```json
@@ -25,9 +25,8 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
 }
 ```
 
-注：为了做成portable的，export.bat用的命令用的是.\bin\node.exe。node版本是0.10.26。
-
-
+### 注：
+* 为了做成portable的，export.bat用的命令用的是.\bin\node.exe。node版本是0.10.26。
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
@@ -94,21 +93,15 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
 * 关键符号都是半角符号。
 * 数组使用逗号`,`分割。
 * 对象属性使用分号`;`分割。
+* 列格式如果是日期，导出来的是格林尼治时间不是当时时区的时间，列设置成字符串可解决此问题。
 
 ## 原理说明
-* 依赖 `node-xlsx` 这个npm项目解析xlsx文件。
-* 其实xlsx就是个zip文件，解压出来都是xml。
-  有一个xml存的string，有相应个xml存的sheet。
-  通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
+* 依赖 `node-xlsx` 这个项目解析xlsx文件。
+* xlsx就是个zip文件，解压出来都是xml。有一个xml存的string，有相应个xml存的sheet。通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
 ## 补充
-* 实验环境：win7_x64 + nodejs_v0.10.25
+* 实验环境：win7_x64 + nodejs_v0.10.25(可在linux上执行)
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
-
-## 已知BUG
-* 对象数组列，如果对象里面有属性是数字类型，并且数字有格式(颜色等，背景色没事儿)会导致解析出错。(node-xlsx插件 bug)
-* 如果excel只有3行3列，比如之前在5行5列的那个位置添加东西然后又删除了，有可能会导致node-xlsx插件认为这个表格是5行5列，就会导出出错。
-* 列格式如果是日期，导出来的是格林尼治时间不是当时时区的时间，列设置成字符串可解决此问题。(node-xlsx插件 bug)

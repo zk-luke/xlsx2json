@@ -1,10 +1,10 @@
 {
+    "main": "index.js",
     "name": "xlsx2json",
     "version": "1.0.0",
-    "description": "convert xlsx to complex json",
-    "main": "index.js",
+    "description": "convert complex xlsx to json",
     "homepage": "https://github.com/koalaylj/xlsx2json",
-    "author": "koalaylj",
+    "author": "于小懒",
     "licenses": "MIT",
     "repository": {
         "type": "git",
