@@ -21,16 +21,16 @@ var commands = {
         "desc": "export excel to json. --export [files]",
         "action": exportJson,
         "default": true
-    },
-    "--import": {
-        "alias": ["-i"],
-        "desc": "import json to mongo. --import [files]",
-        "action": importMongo
-    },
-    "--noauth": {
-        "alias": ["-na"],
-        "desc": "import json to mongo without auth(do not need username and password)."
     }
+    // "--import": {
+    //     "alias": ["-i"],
+    //     "desc": "import json to mongo. --import [files]",
+    //     "action": importMongo
+    // },
+    // "--noauth": {
+    //     "alias": ["-na"],
+    //     "desc": "import json to mongo without auth(do not need username and password)."
+    // }
 };
 
 var keys = []; //缓存commands的key ("--help"...)

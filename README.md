@@ -2,21 +2,15 @@ xlsx2json
 =========
 
 ## 作用
-* 让excel表达复杂的json格式
-* 将excel转成json
-* 将json导入mongo数据库。
+> 让excel表达复杂的json格式,将xlsx文件转成json。
 
 ## 为什么要做这个项目？
-开发游戏的时候，策划用的是excel，而我们的数据库是mongo。
-我们的工作流是策划写excel，导出json，然后导入mongo数据库。
+开发游戏的时候，策划用的是excel，而我们的数据用的是json，因为excel是二维的，无法表达json里面数组和对象等复杂结构。
 
-因为excel是二维的，无法表达mongo文档里面数组和subdocument等复杂结构。
-按excel结构来设计mongo，会使mongo受限并无法使用某些特性。
-
-有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成这个功能。
+有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成类似的功能。
 但是不懂clojure表示压力很大而且有些功能不符合我们的需求。
 
-so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)，表示感谢。
+so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
 ## 使用说明
 首次使用需要配置config.json
@@ -27,31 +21,16 @@ so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://g
         "head": 2,//表头所在的行，第一行可以是注释，第二行是表头。
         "src": "./excel/**/[^~$]*.xlsx", //xlsx文件 glob配置风格
         "dest": "./json"    //导出的json存放的位置
-    },
-
-    "mongoimport": ".\\bin\\mongoimport.exe",
-
-    "db": { //json要导入的数据库的配置，如果没有用户名密码，导入时候命令行加 --noauth
-        "host": "127.0.0.1",
-        "database": "princess",
-        "user": "princess",
-        "port": 27010,
-        "pwd": "pwd"
     }
 }
 ```
 
-注：node & mongoimport 命令用的是.\bin下面的exe。node版本是0.10.26。mongoimport版本是2.6。
+注：为了做成portable的，export.bat用的命令用的是.\bin\node.exe。node版本是0.10.26。
 
 
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-* json导入mongo：双击`import.bat`即可将./json下所有的json文件导入到数据库中。
-collection的名字就是json文件的名字。
-或者自己手动导入：
-`mongoimport -h 127.0.0.1 --port 27017 -u username -p password -d db_name -c collection_name xxx.json --jsonArray`
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
-
 
 #### 示例1 test.xlsx
 ![test.xlsx](http://img3.douban.com/view/photo/photo/public/p2180848214.jpg)
@@ -121,7 +100,7 @@ collection的名字就是json文件的名字。
 * 其实xlsx就是个zip文件，解压出来都是xml。
   有一个xml存的string，有相应个xml存的sheet。
   通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
-* 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自定的json数据。
+* 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
 ## 补充
 * 实验环境：win7_x64 + nodejs_v0.10.25
@@ -130,7 +109,6 @@ collection的名字就是json文件的名字。
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
 
 ## 已知BUG
-* =B3 这种公式如果引用的字符串，会到出来null。(可能是node-xlsx插件 bug)
 * 对象数组列，如果对象里面有属性是数字类型，并且数字有格式(颜色等，背景色没事儿)会导致解析出错。(node-xlsx插件 bug)
 * 如果excel只有3行3列，比如之前在5行5列的那个位置添加东西然后又删除了，有可能会导致node-xlsx插件认为这个表格是5行5列，就会导出出错。
 * 列格式如果是日期，导出来的是格林尼治时间不是当时时区的时间，列设置成字符串可解决此问题。(node-xlsx插件 bug)
