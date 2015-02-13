@@ -3,15 +3,5 @@
         "head": 2,
         "src": "./excel/**/[^~$]*.xlsx",
         "dest": "./json"
-    },
-
-    "mongoimport": ".\\bin\\mongoimport.exe",
-
-    "db": {
-        "host": "192.168.0.155",
-        "database": "princess",
-        "user": "princess",
-        "port": 27010,
-        "pwd": "xxx"
     }
 }
