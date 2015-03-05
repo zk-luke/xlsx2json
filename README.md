@@ -1,12 +1,16 @@
-## 解决了什么问题？
-开发游戏的时候，策划用的是excel，而我们的数据用的是json，因为excel是二维的，无法表达json里面数组和对象等复杂结构。
+xlsx2json
+=========
+[English Document](./docs/doc_en.md)
 
-有一个clojure项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json) 可以完成类似的功能。
-但是不懂clojure表示压力很大而且有些功能不符合我们的需求。
+### 作用
+让excel表达复杂的json格式,将xlsx文件转成json。
 
-so,就搞了这个项目。某些想法也是借鉴了[excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
+### 感谢
+某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
 ### 使用说明
+目前只支持.xlsx格式，不支持.xls格式。
+
 首次使用需要配置config.json
 
 ```json
