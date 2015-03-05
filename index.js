@@ -8,7 +8,7 @@ var glob = require('glob');
 var config = require('./config.json');
 
 /**
- * 命令支持的参数
+ * all commands
  */
 var commands = {
     "--help": {
@@ -22,27 +22,18 @@ var commands = {
         "action": exportJson,
         "default": true
     }
-    // "--import": {
-    //     "alias": ["-i"],
-    //     "desc": "import json to mongo. --import [files]",
-    //     "action": importMongo
-    // },
-    // "--noauth": {
-    //     "alias": ["-na"],
-    //     "desc": "import json to mongo without auth(do not need username and password)."
-    // }
 };
 
-var keys = []; //缓存commands的key ("--help"...)
-var alias_map = {}; // alias_name -> name 映射
-var parsed_cmds = []; //解析命令行出来的命令
+var keys = []; //cache of command's key ("--help"...)
+var alias_map = {}; // mapping of alias_name -> name
+var parsed_cmds = []; //cmds of parsed out.
 
 // process.on('uncaughtException', function(err) {
-//     console.log('shit 出错啦: ' + err);
+//     console.log('error: ' + err);
 // });
 
 /**
- * 初始化
+ * initialize
  */
 (function() {
     keys = Object.keys(commands);
@@ -66,8 +57,8 @@ var parsed_cmds = []; //解析命令行出来的命令
 
 
 /**
- * 导出json
- * args: --export 命令行参数 excel文件列表，如果为空，则按照config.xlsx.src导出。
+ * export json
+ * args: --export [cmd_line_args] [.xlsx files list].
  */
 function exportJson(args) {
 
@@ -79,75 +70,21 @@ function exportJson(args) {
             };
 
             files.forEach(function(element, index, array) {
-                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head);
+                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head,config.xlsx.arraySeparator);
             });
 
         })
     } else {
         if (args instanceof Array) {
             args.forEach(function(element, index, array) {
-                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head);
+                xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head,config.xlsx.arraySeparator);
             });
         };
     }
 };
 
-
 /**
- * 导入数据库
- */
-function importMongo(args) {
-
-    var uri = config.mongoimport + ' -h ${host} --port ${port} -u ${user} -p ${pwd} -d ${database} -c ${collection} ${json} --jsonArray';
-
-    var files_to_import = args;
-
-    if (typeof args === 'undefined' || args.length == 0) {
-        files_to_import = fs.readdirSync(config.xlsx.dest);
-        files_to_import.forEach(function(element, index, array) {
-            array[index] = path.join(config.xlsx.dest, element);
-        });
-    }
-
-    var db = config.db;
-
-    uri = uri.replace("${host}", db.host).replace("${database}", db.database).replace("${port}", db.port);
-
-    if (parsed_cmds.indexOf('--noauth') === -1) {
-        uri = uri.replace("${user}", db.user).replace("${pwd}", db.pwd);
-    } else {
-        uri = uri.replace("-u ${user} -p ${pwd}", "");
-    };
-
-    // console.log("uri:" + uri + "keys.indexOf('--noauth'):" + keys.indexOf('--noauth') + "," + keys);
-
-    files_to_import.forEach(function(element, index, array) {
-        if (path.extname(element) === '.json') {
-
-            var temp = element.split(path.sep);
-            var collection = path.basename(temp[temp.length - 1], ".json");
-            var newUri = uri.replace("${collection}", collection).replace("${json}", element);
-
-            var child = shell.exec(newUri, function(error, stdout, stderr) {
-
-                console.log(collection + "\t--> " + db.host + "/" + db.database + ": " + collection);
-
-                console.log('state: ' + stdout);
-
-                if (stderr) {
-                    console.error('stderr: ' + stderr);
-                };
-
-                if (error) {
-                    console.error('exec error: ' + error);
-                }
-            });
-        };
-    });
-};
-
-/**
- * 显示帮助
+ * show help
  */
 function showHelp() {
     var usage = "usage: \n";
@@ -160,18 +97,15 @@ function showHelp() {
     usage += "\nexamples: ";
     usage += "\n\n $node index.js --export\n\tthis will export all files configed to json.";
     usage += "\n\n $node index.js --export ./excel/foo.xlsx ./excel/bar.xlsx\n\tthis will export foo and bar xlsx files.";
-    usage += "\n\n $node index.js --import\n\tthis will import all configed json files.";
-    usage += "\n\n $node index.js --import ./json/foo.json ./excel/bar.json\n\tthis will export foo and bar json files.";
-    usage += "\n\n $node index.js --import --noauth\n\t db do not need auth(do not need db user & pwd).";
 
     console.log(usage);
 };
 
 
-/**************************** 命令行解析 *********************************/
+/**************************** parse command line *********************************/
 
 /**
- * 执行一条命令
+ * execute a command
  */
 function exec(cmd) {
     if (typeof cmd.action === "function") {
@@ -181,7 +115,7 @@ function exec(cmd) {
 
 
 /**
- * 解析命令行参数
+ * parse command line args
  */
 function parseCommandLine(args) {
 
@@ -198,12 +132,12 @@ function parseCommandLine(args) {
 
         cli.forEach(function(element, index, array) {
 
-            //将别名替换为正式命令名字
+            //replace alias name with real name.
             if (element.indexOf('--') === -1 && element.indexOf('-') === 0) {
                 cli[index] = alias_map[element];
             }
 
-            //解析命令和相应的参数
+            //parse command and args
             if (cli[index].indexOf('--') === -1) {
                 cmd.args.push(cli[index]);
             } else {
@@ -226,7 +160,7 @@ function parseCommandLine(args) {
 };
 
 /**
- * 当命令行未提供参数是，默认执行的命令
+ * default command when no command line argas provided.
  */
 function defaultCommand() {
     if (keys.length <= 0) {

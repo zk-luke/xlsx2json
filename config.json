@@ -2,6 +2,7 @@
     "xlsx": {
         "head": 2,
         "src": "./excel/**/[^~$]*.xlsx",
-        "dest": "./json"
+        "dest": "./json",
+        "arraySeparator":","
     }
 }
