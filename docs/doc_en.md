@@ -9,7 +9,7 @@ xlsx2json document
 ```json
 {
     "xlsx": {
-       "head": 2,	// head of the excel(maybe first line is comment and second line is real head).
+       "head": 1,	// head of the excel(set "head":2 if first line is commnet and second line is real head).
         "src": "./excel/**/[^~$]*.xlsx", 	// .xlsx files that going to be exported. glob style.
         "dest": "./json",    // directory of exported .json files.
         "arraySeparator":"," // separtor of array.
@@ -19,11 +19,11 @@ xlsx2json document
 
 * Exceute `export.bat` and `./excel/*.xlsx` files will be exported to `./json` directory.
 
-#### Example
+#### Example (excel .xlsx file)
 | id   | weapon  | flag   | nums#[] | words#[]   | bools#[]   | objs#{}      | obj_arr#[{}]          |
 | ---- | --------| ------ | ------- | ---------- | ---------- | ------------ | --------------------- |
 | 123  | shield	 | true   | 1,2     | hello,world| true,true  | a:123;b:45   | a:1;b:"hi",a:2;b:"hei"|
-| 456  | sword   | false  | 3,5,8   | oh god     | false,true | a:11;b:22    | a:1;b:"hello"		   |
+| 456  | sword   | false  | 3,5,8   | oh god     | false,true | a:11;b:22    | a:1;b:"hello"		 |
 
 Result：
 
