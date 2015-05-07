@@ -4,6 +4,7 @@ xlsx2json document
 > Can be used on windows & *nix.
 
 ### Quick Start
+* config `nodejs` environment.
 * setup config files `config.json`
 
 ```json
