@@ -1,32 +1,33 @@
 {
-    "main": "index.js",
-    "name": "xlsx2json",
-    "version": "1.0.0",
-    "description": "convert complex xlsx to json",
-    "homepage": "https://github.com/koalaylj/xlsx2json",
-    "author": "于小懒",
-    "licenses": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/koalaylj/xlsx2json.git"
-    },
-    "keywords": [
-        "xlsx",
-        "excel",
-        "json",
-        "game developer",
-        "mongo"
-    ],
-    "scripts": {
-        "test": "nodeunit test"
-    },
-    "engines": {
-        "node": "~0.10.25"
-    },
-    "dependencies": {
-        "node-xlsx": "~0.4.0",
-        "minimatch": "~0.2.14",
-        "glob": "3.2.9"
-    },
-    "devDependencies": {}
+  "main": "index.js",
+  "name": "xlsx2json",
+  "version": "1.0.0",
+  "description": "convert complex xlsx to json",
+  "homepage": "https://github.com/koalaylj/xlsx2json",
+  "author": "于小懒",
+  "licenses": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koalaylj/xlsx2json.git"
+  },
+  "keywords": [
+    "xlsx",
+    "excel",
+    "json",
+    "game developer",
+    "mongo"
+  ],
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "engines": {
+    "node": "~0.10.25"
+  },
+  "dependencies": {
+    "glob": "3.2.9",
+    "minimatch": "~0.2.14",
+    "moment": "^2.10.2",
+    "node-xlsx": "~0.4.0"
+  },
+  "devDependencies": {}
 }
