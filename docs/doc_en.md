@@ -17,7 +17,7 @@ xlsx2json document
 }
 ```
 
-* Exceute `export.bat` and `./excel/*.xlsx` files will be exported to `./json` directory.
+* Exceute `export.bat` then `./excel/*.xlsx` files will be exported to `./json` directory.
 
 #### Example (excel .xlsx file)
 | id   | weapon  | flag   | nums#[] | words#[]   | bools#[]   | objs#{}      | obj_arr#[{}]          |
@@ -71,13 +71,14 @@ Result：
 * object-array
 
 ### Excel Head Line Rule(use `#` to separate column name and column data type)
-* string：`column_name#string` 。
-* number：`column_name#number` 。
-* bool：`column_name#bool` 。
+* string：`column_name#string`
+* number：`column_name#number`
+* bool：`column_name#bool`
 * basic type (string,number,bool):we can also leave it blank(automake type aware).
-* number/boolean/string array：`column_name#[]` 。
-* object：`column_name#{}` 。
-* object array：`column_name#[{}]` 。
+* number/boolean/string array：`column_name#[]`
+* object：`column_name#{}`
+* object array：`column_name#[{}]
+* Date type formate:`2008-12-05 16:03:00` or `2008-18-15`
 
 ### Thanks
 Inspiring by a clojure project [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
