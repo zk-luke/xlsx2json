@@ -27,9 +27,10 @@ xlsx2json
 ```
 
 ### 注：
-* 为了做成portable的，export.bat用的命令用的是.\bin\node.exe。node版本是0.10.26。
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
-* excel导出json：双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+* excel导出json：
+	* windows: 双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+	* mac: 运行`./export.sh` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
