@@ -1,5 +1,4 @@
 xlsx2json document
-=========
 > Let excel express complex JSON format and export excel to json.
 > Can be used on windows & *nix.
 
@@ -10,7 +9,7 @@ xlsx2json document
 ```json
 {
     "xlsx": {
-       "head": 1,	// head of the excel(set "head":2 if first line is commnet and second line is real head).
+       "head": 2,	// head of the excel(first line maybe some commnet).
         "src": "./excel/**/[^~$]*.xlsx", 	// .xlsx files that going to be exported. glob style.
         "dest": "./json",    // directory of exported .json files.
         "arraySeparator":"," // separtor of array.
@@ -76,7 +75,7 @@ Result：
 * string：`column_name#string`
 * number：`column_name#number`
 * bool：`column_name#bool`
-* date:`column_name#date`.formate:`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`.（attention：xlsx column type must be text，if date type will cause some error for now）.
+* date:`column_name#date`.formate:`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`.（attention：column type must be text，date type will cause some error for now）.
 * basic type (string,number,bool):we can also leave it blank(automake type aware).
 * number/boolean/string array：`column_name#[]`
 * object：`column_name#{}`

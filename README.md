@@ -18,10 +18,10 @@ xlsx2json
 ```json
 {
     "xlsx": {
-        "head": 2,// 表头所在的行，第一行可以是注释，第二行是表头。
+        "head": 2,			// 表头所在的行，第一行可以是注释，第二行是表头。
         "src": "./excel/**/[^~$]*.xlsx", // xlsx文件 glob配置风格
-        "dest": "./json",    // 导出的json存放的位置
-        "arraySeparator":"," // 数组的分隔符
+        "dest": "./json",	 //  导出的json存放的位置
+        "arraySeparator":","  // 数组的分隔符
     }
 }
 ```
@@ -30,7 +30,7 @@ xlsx2json
 * 查看帮助：执行`node index.js -h` 查看使用帮助；
 * excel导出json：
 	* windows: 双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-	* mac: 运行`./export.sh` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
+	* mac & *nix: 运行`./export.sh` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
 * 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
@@ -87,7 +87,7 @@ xlsx2json
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
 * 字符串类型：此列表头的命名形式 `列名#string` 。
 * 数字类型：此列表头的命名形式 `列名#number` 。
-* 日期类型：`列名#date` 。格式`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`。（注意：目前xlsx文件里面列必须设置为文本类型，如果是日期类型的话，会导致底层插件解析出来错误格式的时间）.
+* 日期类型：`列名#date` 。格式`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`。（==注意：目前xlsx文件里面列必须设置为文本类型，如果是日期类型的话，会导致底层插件解析出来错误格式的时间==）.
 * 布尔类型：此列表头的命名形式 `列名#bool` 。
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
@@ -106,7 +106,7 @@ xlsx2json
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
 ## 补充
-* 实验环境：win7_x64 + nodejs_v0.10.25(可在linux上执行)
+* windows/mac/linux都支持。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
