@@ -77,11 +77,11 @@ xlsx2json
 * boolean  布尔
 * string 字符串
 * date 日期类型
-* object 对象  // 不支持对象内有数组以及对象嵌套对象，防止表格过度复杂。
+* object 对象，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 * number-array  数字数组
 * boolean-array  布尔数组
 * string-array  字符串数组
-* object-array 对象数组
+* object-array 对象数组，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 
 ## 表头规则
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
