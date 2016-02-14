@@ -77,11 +77,11 @@ xlsx2json
 * boolean  布尔
 * string 字符串
 * date 日期类型
-* object 对象  // 不支持对象内有数组以及对象嵌套对象，防止表格过度复杂。
+* object 对象，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 * number-array  数字数组
 * boolean-array  布尔数组
 * string-array  字符串数组
-* object-array 对象数组
+* object-array 对象数组，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 
 ## 表头规则
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
@@ -92,6 +92,7 @@ xlsx2json
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
 * 对象数组：此列表头的命名形式`列名#[{}]` 。
+* id：此列表头的命名形式`列名#id`，用来生成对象格式的输出，以该列字段作为key，一个sheet中不能存在多个id类型的列，否则会被覆盖，相关用例请查看test/heroes.xlsx
 
 
 ## 数据规则
@@ -99,6 +100,12 @@ xlsx2json
 * 数组使用逗号`,`分割。
 * 对象属性使用分号`;`分割。
 * 列格式如果是日期，导出来的是格林尼治时间不是当时时区的时间，列设置成字符串可解决此问题。
+
+## 外键类型的sheet关联
+* sheet名称必须为【列名@sheet名称】，例如存在一个名称为a的sheet，会导出一个a.json，可以使用一个名称为b@a的sheet为这个json添加一个b的属性
+* 外键类型的sheet（sub sheet）顺序上必须位于被关联的sheet（master sheet）之后
+* master sheet的输出类型如果为对象，则sub sheet必须也存在master sheet同列名并且类型为id的列作为关联关系；master sheet的输出类型如果为数组，则sub sheet按照数组下标（行数）顺序关联
+* 相关用例请查看test/heroes.xlsx
 
 ## 原理说明
 * 依赖 `node-xlsx` 这个项目解析xlsx文件。
