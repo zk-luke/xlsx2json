@@ -92,7 +92,7 @@ xlsx2json
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
 * 对象数组：此列表头的命名形式`列名#[{}]` 。
-* id，用来生成对象格式的输出，以该列字段作为key，一个sheet中不能存在多个id类型的列，否则会被覆盖
+* id：此列表头的命名形式`列名#id`，用来生成对象格式的输出，以该列字段作为key，一个sheet中不能存在多个id类型的列，否则会被覆盖，相关用例请查看test/heroes.xlsx
 
 
 ## 数据规则
@@ -105,6 +105,7 @@ xlsx2json
 * sheet名称必须为【列名@sheet名称】，例如存在一个名称为a的sheet，会导出一个a.json，可以使用一个名称为b@a的sheet为这个json添加一个b的属性
 * 外键类型的sheet（sub sheet）顺序上必须位于被关联的sheet（master sheet）之后
 * master sheet的输出类型如果为对象，则sub sheet必须也存在master sheet同列名并且类型为id的列作为关联关系；master sheet的输出类型如果为数组，则sub sheet按照数组下标（行数）顺序关联
+* 相关用例请查看test/heroes.xlsx
 
 ## 原理说明
 * 依赖 `node-xlsx` 这个项目解析xlsx文件。

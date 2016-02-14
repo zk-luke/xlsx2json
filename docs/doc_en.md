@@ -81,6 +81,12 @@ Result：
 * object：`column_name#{}`
 * object array：`column_name#[{}]
 * Date type formate:`2008-12-05 16:03:00` or `2008-18-15`
+* id `column_name#id, use to generate an object type json file, the id column would become the keys of the json object, only one id column is allowed in one sheet, see more info in test/heroes.xlsx
+
+### how to use external key
+* you can use the external key feature to organize more complicated data.
+* create a new sheet, name it with a prefix and a '@' with an exist sheet name, it is done:)
+* you may use the id to relevance the data between the two sheets, see more info in test/heroes.xlsx
 
 ### Thanks
 Inspiring by a clojure project [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
