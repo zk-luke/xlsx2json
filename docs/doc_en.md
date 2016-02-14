@@ -81,7 +81,8 @@ Result：
 * object：`column_name#{}`
 * object array：`column_name#[{}]
 * Date type formate:`2008-12-05 16:03:00` or `2008-18-15`
-* id `column_name#id, use to generate an object type json file, the id column would become the keys of the json object, only one id column is allowed in one sheet, see more info in test/heroes.xlsx
+* id `column_name#id`, use to generate an object type json file, the id column would become the keys of the json object, only one id column is allowed in one sheet, see more info in test/heroes.xlsx
+* id[] `column_name#id[]`, force the value to be object array
 
 ### how to use external key
 * you can use the external key feature to organize more complicated data.
