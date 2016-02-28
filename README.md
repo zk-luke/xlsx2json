@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/koalaylj/xlsx2json.svg?branch=master)](https://travis-ci.org/koalaylj/xlsx2json)
 xlsx2json
 =========
 [English Document](./docs/doc_en.md)
+
 
 ### 作用
 让excel表达复杂的json格式,将xlsx文件转成json。
@@ -8,13 +10,12 @@ xlsx2json
 ### 感谢
 某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
+
 ### 使用说明
-目前只支持.xlsx格式，不支持.xls格式。
+> 目前只支持.xlsx格式，不支持.xls格式。
 
-首先设置好node环境变量。
-
-配置config.json
-
+* 首先设置好node环境变量。
+* 配置config.json
 ```json
 {
     "xlsx": {
@@ -25,13 +26,11 @@ xlsx2json
     }
 }
 ```
+* 执行`export.sh/export.bat`即可将`./excel/*.xlsx` 文件导成json并存放到 `./json` 下。
 
-### 注：
-* 查看帮助：执行`node index.js -h` 查看使用帮助；
-* excel导出json：
-	* windows: 双击`export.bat` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-	* mac & *nix: 运行`./export.sh` 即可将 `./excel/*.xlsx` 文件导出到 `./json` 下。
-* 还支持命令行传参导入导出特定excel，具体使用 node `index.js --help` 查看。
+* 补充(一般用不上)：
+    * 执行`node index.js -h` 查看使用帮助。
+    * 命令行传参方式使用：执行 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
 ![test.xlsx](http://img3.douban.com/view/photo/photo/public/p2180848214.jpg)

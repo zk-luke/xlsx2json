@@ -1,7 +1,7 @@
 {
   "main": "index.js",
   "name": "xlsx2json",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "convert complex xlsx to json",
   "homepage": "https://github.com/koalaylj/xlsx2json",
   "author": "于小懒",
@@ -14,14 +14,12 @@
     "xlsx",
     "excel",
     "json",
+    "convert",
     "game developer",
     "mongo"
   ],
   "scripts": {
-    "test": "nodeunit test"
-  },
-  "engines": {
-    "node": "~0.10.25"
+    "test": "mocha ./test/test.js"
   },
   "dependencies": {
     "glob": "3.2.9",
@@ -29,5 +27,7 @@
     "moment": "^2.10.2",
     "node-xlsx": "~0.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
 }
