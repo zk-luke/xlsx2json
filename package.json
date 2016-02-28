@@ -1,7 +1,7 @@
 {
   "name": "xlsx-to-json-pro",
   "main": "xlsx-to-json.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "让excel表达复杂的json格式,将xlsx文件转成json。",
   "homepage": "https://github.com/koalaylj/xlsx2json",
   "author": "于小懒",
@@ -16,7 +16,7 @@
     "json",
     "convert",
     "game"
-    ],
+  ],
   "scripts": {
     "test": "mocha ./test/test.js"
   },
