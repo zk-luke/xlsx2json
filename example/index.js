@@ -4,11 +4,6 @@ var glob = require('glob');
 
 glob("./excel/**/[^~$]*.xlsx", function (err, files) {
 
-  if (err) {
-    console.error("exportJson error:", err);
-    throw err;
-  }
-
   files.forEach(function (element) {
 
     xlsx.toJson(
@@ -17,6 +12,6 @@ glob("./excel/**/[^~$]*.xlsx", function (err, files) {
       2,  //excell head line number
       "," //array separator
     );
-    
+
   });
 });

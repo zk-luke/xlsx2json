@@ -4,33 +4,30 @@ xlsx2json
 [English Document](./docs/doc_en.md)
 
 
-### 作用
+### 简介
 让excel表达复杂的json格式,将xlsx文件转成json。
 
-### 感谢
-某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
+### install
+`$npm install xlsx-to-json-pro`
 
-
-### 使用说明
+### 使用
 > 目前只支持.xlsx格式，不支持.xls格式。
+> example目录可找到完整例子。
 
-* 首先设置好node环境变量。
-* 配置config.json
-```json
-{
-    "xlsx": {
-        "head": 2,			// 表头所在的行，第一行可以是注释，第二行是表头。
-        "src": "./excel/**/[^~$]*.xlsx", // xlsx文件 glob配置风格
-        "dest": "./json",	 //  导出的json存放的位置
-        "arraySeparator":","  // 数组的分隔符
-    }
-}
+``` javascript
+var magic = require('xlsx-to-json-pro');
+
+["./example/excel/heroes.xlsx"].forEach(function (element) {
+
+  magic.toJson(
+    path.join(__dirname, element),  //excell file
+    path.join(__dirname, "./json"), //json dir
+    2,  //excell head line number
+    "," //array separator
+  );
+
+});
 ```
-* 执行`export.sh/export.bat`即可将`./excel/*.xlsx` 文件导成json并存放到 `./json` 下。json名字以excel的sheet名字命名。
-
-* 补充(一般用不上)：
-    * 执行`node index.js -h` 查看使用帮助。
-    * 命令行传参方式使用：执行 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
 ![test.xlsx](http://img3.douban.com/view/photo/photo/public/p2180848214.jpg)
@@ -82,7 +79,7 @@ xlsx2json
 * string-array  字符串数组
 * object-array 对象数组，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 
-## 表头规则
+## excel表头规则
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
 * 字符串类型：此列表头的命名形式 `列名#string` 。
 * 数字类型：此列表头的命名形式 `列名#number` 。
@@ -112,7 +109,5 @@ xlsx2json
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
 ## 补充
-* windows/mac/linux都支持。
-* 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
+* 项目地址 [xlsx2json npm分支](https://github.com/koalaylj/xlsx2json/tree/npm)
 * 如有问题可以到QQ群内讨论：223460081
-* 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。

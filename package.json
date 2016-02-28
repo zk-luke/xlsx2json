@@ -1,5 +1,5 @@
 {
-  "name": "xlsx-to-json",
+  "name": "xlsx-to-json-pro",
   "version": "0.2.0",
   "description": "convert complex xlsx to json",
   "homepage": "https://github.com/koalaylj/xlsx2json",
@@ -14,9 +14,8 @@
     "excel",
     "json",
     "convert",
-    "game developer",
-    "mongo"
-  ],
+    "game"
+    ],
   "scripts": {
     "test": "mocha ./test/test.js"
   },

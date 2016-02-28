@@ -1,23 +1,28 @@
 xlsx2json document
 > Let excel express complex JSON format and export excel to json.
-> Can be used on windows & *nix.
+
+
+### install
+`$npm install xlsx-to-json-pro`
 
 ### Quick Start
-* config `nodejs` environment.
-* setup config files `config.json`
+> only support .xlsx formate。
 
-```json
-{
-    "xlsx": {
-       "head": 2,	// head of the excel(first line maybe some commnet).
-        "src": "./excel/**/[^~$]*.xlsx", 	// .xlsx files that going to be exported. glob style.
-        "dest": "./json",    // directory of exported .json files.
-        "arraySeparator":"," // separtor of array.
-    }
-}
+
+``` javascript
+var magic = require('xlsx-to-json-pro');
+
+["./example/excel/heroes.xlsx"].forEach(function (element) {
+
+  magic.toJson(
+    path.join(__dirname, element),  //source excell file.
+    path.join(__dirname, "./json"), //destination json directory.
+    2,  //excell head line number,first line maybe commment.
+    "," //array separator.
+  );
+
+});
 ```
-
-* Exceute `export.bat` then `./excel/*.xlsx` files will be exported to `./json` directory.
 
 #### Example (excel .xlsx file)
 | id   | weapon  | flag   | nums#[] | words#[]   | bools#[]   | objs#{}      | obj_arr#[{}]          |
@@ -76,7 +81,7 @@ Result：
 * number：`column_name#number`
 * bool：`column_name#bool`
 * date:`column_name#date`.formate:`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`.（attention：column type must be text，date type will cause some error for now）.
-* basic type (string,number,bool):we can also leave it blank(automake type aware).
+* basic type (string,number,bool):we can also leave it blank(auto type aware).
 * number/boolean/string array：`column_name#[]`
 * object：`column_name#{}`
 * object array：`column_name#[{}]
@@ -89,12 +94,8 @@ Result：
 * create a new sheet, name it with a prefix and a '@' with an exist sheet name, it is done:)
 * you may use the id to relevance the data between the two sheets, see more info in test/heroes.xlsx
 
-### Thanks
-Inspiring by a clojure project [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
 ### The Last
-* Type `node index.js -h` int cmd window to show help;
 * Use `,` to separate array values by default(we can set it in config file).
 * Use `;` to separate object properties。
 * Only support for .xlsx format for now(do not support .xls format).
-* In order to make it portable, I put .\bin\node.exe(used by export.bat) into project.
