@@ -1,0 +1,64 @@
+{
+  "h101": {
+    "file": "hero_103_json",
+    "name": "名字",
+    "desc": "描述",
+    "icon": "h101.png",
+    "skills": [
+      "s10101",
+      "s10102"
+    ],
+    "equips": [
+      "e10101",
+      "e10102"
+    ],
+    "unlock": {
+      "unit": "hero",
+      "value": "h101"
+    },
+    "levelDatas": {
+      "level": 4,
+      "life": 203,
+      "resurge": {
+        "cost": "gem",
+        "value": 100,
+        "time": 103
+      },
+      "upgrade": {
+        "unit": "gem",
+        "value": 103
+      }
+    }
+  },
+  "h102": {
+    "file": "hero_104_json",
+    "name": "名字",
+    "desc": "描述",
+    "icon": "h102.png",
+    "skills": [
+      "s10101",
+      "s10103"
+    ],
+    "equips": [
+      "e10101",
+      "e10103"
+    ],
+    "unlock": {
+      "unit": "hero",
+      "value": "h102"
+    },
+    "levelDatas": {
+      "level": 4,
+      "life": 203,
+      "resurge": {
+        "cost": "gem",
+        "value": 100,
+        "time": 103
+      },
+      "upgrade": {
+        "unit": "gem",
+        "value": 103
+      }
+    }
+  }
+}

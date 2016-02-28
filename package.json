@@ -1,7 +1,8 @@
 {
   "name": "xlsx-to-json-pro",
+  "main": "xlsx-to-json.js",
   "version": "0.2.0",
-  "description": "convert complex xlsx to json",
+  "description": "让excel表达复杂的json格式,将xlsx文件转成json。",
   "homepage": "https://github.com/koalaylj/xlsx2json",
   "author": "于小懒",
   "licenses": "MIT",
