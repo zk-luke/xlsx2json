@@ -1,7 +1,7 @@
 {
   "name": "xlsx-to-json-plus",
   "main": "xlsx-to-json.js",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "让excel表达复杂的json格式,将xlsx文件转成json。",
   "homepage": "https://github.com/koalaylj/xlsx2json",
   "author": "于小懒",
