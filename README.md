@@ -7,14 +7,14 @@
 让excel表达复杂的json格式,将xlsx文件转成json。
 
 ### install
-`$npm install xlsx-to-json-pro`
+`$npm install xlsx-to-json-plus`
 
 ### 使用
 > 目前只支持.xlsx格式，不支持.xls格式。
 > example目录可找到完整例子。
 
 ``` javascript
-var magic = require('xlsx-to-json-pro');
+var magic = require('xlsx-to-json-plus');
 
 ["./example/excel/heroes.xlsx"].forEach(function (element) {
 

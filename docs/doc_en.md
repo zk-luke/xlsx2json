@@ -1,23 +1,23 @@
 xlsx2json document
-> Let excel express complex JSON format and export excel to json.
+Let excel express complex JSON format and export excel to json.
 
 
 ### install
-`$npm install xlsx-to-json-pro`
+`$npm install xlsx-to-json-plus`
 
 ### Quick Start
-> only support .xlsx formate。
+only support .xlsx formate.
 
+```javascript
 
-``` javascript
-var magic = require('xlsx-to-json-pro');
+var magic = requiplusxlsx-to-json-plus');
 
 ["./example/excel/heroes.xlsx"].forEach(function (element) {
 
   magic.toJson(
     path.join(__dirname, element),  //source excell file.
     path.join(__dirname, "./json"), //destination json directory.
-    2,  //excell head line number,first line maybe commment.
+    2,  //excell heaplusne number,first line maybe commment.
     "," //array separator.
   );
 
