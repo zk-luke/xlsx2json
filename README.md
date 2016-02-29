@@ -7,6 +7,9 @@ xlsx2json
 ### 作用
 让excel表达复杂的json格式,将xlsx文件转成json。
 
+### npm相关
+* 如需当做npm模块引用请切换到`npm`分支。
+
 ### 感谢
 某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
