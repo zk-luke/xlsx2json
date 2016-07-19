@@ -141,7 +141,7 @@ function _parseSheet(sheet, head) {
 
     for (var i_row = head; i_row < sheet.maxRow; i_row++) {
       var row = sheet.data[i_row];
-      if (typeof row == 'undefined' || !row[0]) {
+      if (typeof row == 'undefined') {
         break;
       }
       var json_obj = {};
