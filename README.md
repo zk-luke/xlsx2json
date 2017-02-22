@@ -36,7 +36,11 @@ xlsx2json
     * 命令行传参方式使用：执行 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
-![test.xlsx](http://img3.douban.com/view/photo/photo/public/p2180848214.jpg)
+| id   | desc         | flag   | nums#[] | words#[]    |   map#[]   | data#{}      | hero#[{}]                     |
+| ---- | -------------| ------ | ------- | ----------- | ---------- | ------------ | --------------------------    |
+| 123  | description  | true   | 1,2     | 哈哈,呵呵     | true,true  | a:123;b:45   | id:2;level:30,id:3;level:80  |
+| 456  | 描述          | false  | 3,5,8   | shit,my god | false,true | a:11;b:22    | id:9;level:38,id:17;level:100 |
+
 
 输出如下：
 
@@ -45,7 +49,7 @@ xlsx2json
     "id": 123,
     "desc": "description",
     "flag": true,
-    "otherid": [1, 2],
+    "nums": [1, 2],
     "words": ["哈哈", "呵呵"],
     "map": [true, true],
     "data": {
@@ -60,7 +64,7 @@ xlsx2json
     "id": 456,
     "desc": "描述",
     "flag": false,
-    "otherid": [3, 5, 8],
+    "nums": [3, 5, 8],
     "words": ["shit", "my god"],
     "map": [false, true],
     "data": {
