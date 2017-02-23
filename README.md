@@ -17,7 +17,7 @@ xlsx2json
 ### 使用说明
 > 目前只支持.xlsx格式，不支持.xls格式。
 
-* 首先设置好node环境变量。
+* 本项目是基于nodejs的，所以需要先安装nodejs。
 * 配置config.json
 ```json
 {
