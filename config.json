@@ -3,6 +3,6 @@
         "head": 2,
         "src": "./excel/**/[^~$]*.xlsx",
         "dest": "./json",
-        "arraySeparator":","
+        "arraySeparator": "|"
     }
 }

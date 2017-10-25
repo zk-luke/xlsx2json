@@ -29,12 +29,12 @@ var parsed_cmds = []; //cmds of parsed out.
 //     console.log('error: ' + err);
 // });
 
- //cache of command's key ("--help"...)
+//cache of command's key ("--help"...)
 var keys = Object.keys(commands);
 
 for (var key in commands) {
   var alias_array = commands[key].alias;
-  alias_array.forEach(function (e) {
+  alias_array.forEach(function(e) {
     alias_map[e] = key;
   });
 }
@@ -43,7 +43,7 @@ parsed_cmds = parseCommandLine(process.argv);
 
 // console.log("%j", parsed_cmds);
 
-parsed_cmds.forEach(function (e) {
+parsed_cmds.forEach(function(e) {
   exec(e);
 });
 
@@ -55,21 +55,21 @@ parsed_cmds.forEach(function (e) {
 function exportJson(args) {
 
   if (typeof args === 'undefined' || args.length === 0) {
-    glob(config.xlsx.src, function (err, files) {
+    glob(config.xlsx.src, function(err, files) {
       if (err) {
         console.error("exportJson error:", err);
         throw err;
       }
 
-      files.forEach(function (element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head, config.xlsx.arraySeparator);
+      files.forEach(function(element, index, array) {
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head - 1, config.xlsx.arraySeparator);
       });
 
     });
   } else {
     if (args instanceof Array) {
-      args.forEach(function (element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head, config.xlsx.arraySeparator);
+      args.forEach(function(element, index, array) {
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head - 1, config.xlsx.arraySeparator);
       });
     }
   }
@@ -122,7 +122,7 @@ function parseCommandLine(args) {
     var pos = 0;
     var cmd;
 
-    cli.forEach(function (element, index, array) {
+    cli.forEach(function(element, index, array) {
 
       //replace alias name with real name.
       if (element.indexOf('--') === -1 && element.indexOf('-') === 0) {

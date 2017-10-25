@@ -24,8 +24,9 @@
   "dependencies": {
     "glob": "3.2.9",
     "minimatch": "~0.2.14",
-    "moment": "^2.10.2",
-    "node-xlsx": "~0.4.0"
+    "moment": "^2.19.1",
+    "node-xlsx": "^0.11.0",
+    "xlsx": "^0.11.6"
   },
   "devDependencies": {
     "mocha": "^2.4.5"

@@ -3,9 +3,8 @@ xlsx2json
 =========
 [English Document](./docs/doc_en.md)
 
-
 ### 作用
-让excel表达复杂的json格式,将xlsx文件转成json。
+让excel支持表达复杂的json格式,将xlsx文件转成json。
 
 ### npm相关
 * 如需当做npm模块引用请切换到`npm`分支。
@@ -13,19 +12,44 @@ xlsx2json
 ### 感谢
 某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
-
 ### 使用说明
-> 目前只支持.xlsx格式，不支持.xls格式。
+* 目前只支持.xlsx格式，不支持.xls格式。
+* 本项目是基于nodejs的，所以需要先安装nodejs环境。
+* 执行命令
+```bash
+# Clone this repository
+git clone https://github.com/koalaylj/xlsx2json.git
+# Go into the repository
+cd xlsx2json
+# Install dependencies
+npm install
+```
 
-* 本项目是基于nodejs的，所以需要先安装nodejs。
 * 配置config.json
-```json
+```javascript
 {
     "xlsx": {
-        "head": 2,			// 表头所在的行，第一行可以是注释，第二行是表头。
-        "src": "./excel/**/[^~$]*.xlsx", // xlsx文件 glob配置风格
-        "dest": "./json",	 //  导出的json存放的位置
-        "arraySeparator":","  // 数组的分隔符
+        /**
+         * 表头所在的行，第一行可以是注释，第二行是表头
+         */
+        "head": 2,
+
+        /**
+         * xlsx文件所在的目录
+         * glob配置风格
+         */
+        "src": "./excel/**/[^~$]*.xlsx",
+
+        /**
+         * 导出的json存放的位置
+         */
+        "dest": "./json",
+
+        /**
+         * 数组的分隔符
+         * 有时候特殊需要，在excel单元格中里面逗号被当做他用。
+         */
+        "arraySeparator":","
     }
 }
 ```
@@ -93,7 +117,7 @@ xlsx2json
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
 * 字符串类型：此列表头的命名形式 `列名#string` 。
 * 数字类型：此列表头的命名形式 `列名#number` 。
-* 日期类型：`列名#date` 。格式`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`。（==注意：目前xlsx文件里面列必须设置为文本类型，如果是日期类型的话，会导致底层插件解析出来错误格式的时间==）.
+* 日期类型：`列名#date` 。格式`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`。
 * 布尔类型：此列表头的命名形式 `列名#bool` 。
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
@@ -118,8 +142,11 @@ xlsx2json
 * xlsx就是个zip文件，解压出来都是xml。有一个xml存的string，有相应个xml存的sheet。通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
+## TODO
+* [x]列为数组类型时候，嵌套复杂类型。
+* [x]列为对象类型时候，嵌套复杂类型。
+
 ## 补充
 * windows/mac/linux都支持。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
-* 项目中的某些工具函数测试用例请参见我的gist js:validate & js:convert。
