@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/koalaylj/xlsx2json.svg?branch=master)](https://travis-ci.org/koalaylj/xlsx2json)
 ### xlsx2json ([English Document](./docs/doc_en.md))
 > 让excel支持表达复杂的json格式,将xlsx文件转成json。
 
@@ -10,14 +9,8 @@
   * 增加代码静态检查，核心代码重写并改成ES6语法。
   * 更新依赖插件的版本。
 
-### 作用
-让excel支持表达复杂的json格式,将xlsx文件转成json。
-
 ### npm相关
 * 如需当做npm模块引用请切换到`npm`分支。
-
-### 感谢
-某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
 ### 使用说明
 * 目前只支持.xlsx格式，不支持.xls格式。
@@ -60,7 +53,7 @@ npm install
     }
 }
 ```
-* 执行`export.sh/export.bat`即可将`./excel/*.xlsx` 文件导成json并存放到 `./json` 下。json名字以excel的sheet名字命名。
+* 执行`export.sh|export.bat`即可将`./excel/*.xlsx` 文件导成json并存放到 `./json` 下。json名字以excel的sheet名字命名。
 
 * 补充(一般用不上)：
     * 执行`node index.js -h` 查看使用帮助。
@@ -110,21 +103,21 @@ npm install
 ```
 
 ### 支持以下数据类型
-* number 数字类型
-* boolean  布尔
-* string 字符串
-* date 日期类型
-* object 对象，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
-* number-array  数字数组
-* boolean-array  布尔数组
-* string-array  字符串数组
-* object-array 对象数组，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
+* number 数字类型。
+* boolean  布尔。
+* string 字符串。
+* date 日期类型。
+* object 简单对象，暂时不支持对象里面有对象或数组这种。
+* number-array  数字数组。
+* boolean-array  布尔数组。
+* string-array  字符串数组。
+* object-array 对象数组。
 
 ### 表头规则
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
 * 字符串类型：此列表头的命名形式 `列名#string` 。
 * 数字类型：此列表头的命名形式 `列名#number` 。
-* 日期类型：`列名#date` 。格式`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`。
+* 日期类型：`列名#date` 。日期格式要符合标准日期格式。比如`YYYY/M/D H:m:s` or `YYYY/M/D` 等等。
 * 布尔类型：此列表头的命名形式 `列名#bool` 。
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
@@ -134,16 +127,14 @@ npm install
 * 关键符号都是半角符号。
 * 对象属性使用分号`;`分割。
 
-### 原理说明
-* 依赖 `node-xlsx` 这个项目解析xlsx文件。
-* xlsx就是个zip文件，解压出来都是xml。有一个xml存的string，有相应个xml存的sheet。通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
-* 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
-
 ### TODO
 * [x]列为数组类型时候，嵌套复杂类型。
 * [x]列为对象类型时候，嵌套复杂类型。
 * [x]主外键支持。
 * [x]将主分支的代码合并到npm分支。
+
+### 感谢
+某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json](https://github.com/mhaemmerle/excel-to-json)。
 
 ### 补充
 * windows/mac/linux都支持。

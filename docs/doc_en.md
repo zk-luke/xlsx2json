@@ -1,18 +1,43 @@
 xlsx2json document
 > Let excel express complex JSON format and export excel to json.
-> Can be used on windows & *nix.
+> Can be used on mac/linux/windows platform.
 
-### Quick Start
-* config `nodejs` environment.
+### Usage
+
+* To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+```bash
+# Clone this repository
+git clone https://github.com/koalaylj/xlsx2json.git
+# Go into the repository
+cd xlsx2json
+# Install dependencies and run the app
+npm install && npm start
+```
+
 * setup config files `config.json`
-
-```json
+```javascript
 {
     "xlsx": {
-       "head": 2,	// head of the excel(first line maybe some commnet).
-        "src": "./excel/**/[^~$]*.xlsx", 	// .xlsx files that going to be exported. glob style.
-        "dest": "./json",    // directory of exported .json files.
-        "arraySeparator":"," // separtor of array.
+        /**
+         * head line number.
+         * first line maybe comment ,second line is head line.
+         */
+        "head": 2,
+
+        /**
+         * xlsx files ,glob styles.
+         */
+        "src": "./excel/**/[^~$]*.xlsx",
+
+        /**
+         * path for saving JSON files
+         */
+        "dest": "./json",
+
+        /**
+         * separator for array.
+         */
+        "arraySeparator":","
     }
 }
 ```
@@ -75,26 +100,16 @@ Result：
 * string：`column_name#string`
 * number：`column_name#number`
 * bool：`column_name#bool`
-* date:`column_name#date`.formate:`YYYY/M/D H:m:s` or `YYYY/M/D` or `YYYY-M-D H:m:s` or `YYYY-M-D`.（attention：column type must be text，date type will cause some error for now）.
+* date:`column_name#date`. regular date formate.such as `YYYY/M/D H:m:s` or `YYYY-M-D` etc..
 * basic type (string,number,bool):we can also leave it blank(automake type aware).
 * number/boolean/string array：`column_name#[]`
 * object：`column_name#{}`
-* object array：`column_name#[{}]
-* Date type formate:`2008-12-05 16:03:00` or `2008-18-15`
-* id `column_name#id`, use to generate an object type json file, the id column would become the keys of the json object, only one id column is allowed in one sheet, see more usage in test/heroes.xlsx
-* id[] `column_name#id[]`, force the value to be object array, see more usage in test/stages.xlsx
+* object array：`column_name#[{}]`
 
-### how to use external key
-* you can use the external key feature to organize more complicated data.
-* create a new sheet, name it with a prefix and a '@' with an exist sheet name, it is done:)
-* you may use the id to relevance the data between the two sheets, see more info in test/heroes.xlsx
 
 ### Thanks
 Inspiring by a clojure project [excel-to-json ](https://github.com/mhaemmerle/excel-to-json)。
 
 ### The Last
-* Type `node index.js -h` int cmd window to show help;
-* Use `,` to separate array values by default(we can set it in config file).
 * Use `;` to separate object properties。
 * Only support for .xlsx format for now(do not support .xls format).
-* In order to make it portable, I put .\bin\node.exe(used by export.bat) into project.
