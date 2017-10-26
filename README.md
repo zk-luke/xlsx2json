@@ -1,7 +1,14 @@
 [![Build Status](https://travis-ci.org/koalaylj/xlsx2json.svg?branch=master)](https://travis-ci.org/koalaylj/xlsx2json)
-xlsx2json
-=========
-[English Document](./docs/doc_en.md)
+### xlsx2json ([English Document](./docs/doc_en.md))
+> 让excel支持表达复杂的json格式,将xlsx文件转成json。
+
+### 日志
+* 2017-10-26 v0.3.0
+  * 修复中文自动追加拼音问题。
+  * 修复日期解析错误。
+  * 去掉主外键功能(以后再追加)。
+  * 增加代码静态检查，核心代码重写并改成ES6语法。
+  * 更新依赖插件的版本。
 
 ### 作用
 让excel支持表达复杂的json格式,将xlsx文件转成json。
@@ -102,7 +109,7 @@ npm install
 }]
 ```
 
-## 支持以下数据类型
+### 支持以下数据类型
 * number 数字类型
 * boolean  布尔
 * string 字符串
@@ -113,7 +120,7 @@ npm install
 * string-array  字符串数组
 * object-array 对象数组，复杂的嵌套可以通过外键来实现，见“外键类型的sheet关联”
 
-## 表头规则
+### 表头规则
 * 基本数据类型(string,number,bool)时候，一般不需要设置会自动判断，但是也可以明确声明数据类型。
 * 字符串类型：此列表头的命名形式 `列名#string` 。
 * 数字类型：此列表头的命名形式 `列名#number` 。
@@ -122,31 +129,23 @@ npm install
 * 基本类型数组：此列表头的命名形式 `列名#[]` 。
 * 对象：此列表头的命名形式 `列名#{}` 。
 * 对象数组：此列表头的命名形式`列名#[{}]` 。
-* id：此列表头的命名形式`列名#id`，用来生成对象格式的输出，以该列字段作为key，一个sheet中不能存在多个id类型的列，否则会被覆盖，相关用例请查看test/heroes.xlsx
-* id[]：此列表头的命名形式`列名#id[]`，用来约束输出的值为对象数组，相关用例请查看test/stages.xlsx
 
-## 数据规则
+### 数据规则
 * 关键符号都是半角符号。
-* 数组使用逗号`,`分割。
 * 对象属性使用分号`;`分割。
-* 列格式如果是日期，导出来的是格林尼治时间不是当时时区的时间，列设置成字符串可解决此问题。
 
-## 外键类型的sheet关联
-* sheet名称必须为【列名@sheet名称】，例如存在一个名称为a的sheet，会导出一个a.json，可以使用一个名称为b@a的sheet为这个json添加一个b的属性
-* 外键类型的sheet（sub sheet）顺序上必须位于被关联的sheet（master sheet）之后
-* master sheet的输出类型如果为对象，则sub sheet必须也存在master sheet同列名并且类型为id的列作为关联关系；master sheet的输出类型如果为数组，则sub sheet按照数组下标（行数）顺序关联
-* 相关用例请查看test/heroes.xlsx
-
-## 原理说明
+### 原理说明
 * 依赖 `node-xlsx` 这个项目解析xlsx文件。
 * xlsx就是个zip文件，解压出来都是xml。有一个xml存的string，有相应个xml存的sheet。通过解析xml解析出excel数据(json格式)，这个就是`node-xlsx` 做的工作。
 * 本项目只需利用 `node-xlsx` 解析xlsx文件，然后拼装自己的json数据格式。
 
-## TODO
+### TODO
 * [x]列为数组类型时候，嵌套复杂类型。
 * [x]列为对象类型时候，嵌套复杂类型。
+* [x]主外键支持。
+* [x]将主分支的代码合并到npm分支。
 
-## 补充
+### 补充
 * windows/mac/linux都支持。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081

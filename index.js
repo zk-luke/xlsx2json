@@ -1,14 +1,12 @@
-var xlsx = require('./lib/xlsx-to-json.js');
-var path = require('path');
-var shell = require('child_process');
-var fs = require('fs');
-var glob = require('glob');
-var config = require('./config.json');
+const xlsx = require('./lib/xlsx-to-json.js');
+const path = require('path');
+const glob = require('glob');
+const config = require('./config.json');
 
 /**
  * all commands
  */
-var commands = {
+let commands = {
   "--help": {
     "alias": ["-h"],
     "desc": "show this help manual.",
@@ -22,19 +20,19 @@ var commands = {
   }
 };
 
-var alias_map = {}; // mapping of alias_name -> name
-var parsed_cmds = []; //cmds of parsed out.
+let alias_map = {}; // mapping of alias_name -> name
+let parsed_cmds = []; //cmds of parsed out.
 
 // process.on('uncaughtException', function(err) {
 //     console.log('error: ' + err);
 // });
 
 //cache of command's key ("--help"...)
-var keys = Object.keys(commands);
+let keys = Object.keys(commands);
 
-for (var key in commands) {
-  var alias_array = commands[key].alias;
-  alias_array.forEach(function(e) {
+for (let key in commands) {
+  let alias_array = commands[key].alias;
+  alias_array.forEach((e) => {
     alias_map[e] = key;
   });
 }
@@ -79,8 +77,8 @@ function exportJson(args) {
  * show help
  */
 function showHelp() {
-  var usage = "usage: \n";
-  for (var p in commands) {
+  let usage = "usage: \n";
+  for (let p in commands) {
     if (typeof commands[p] !== "function") {
       usage += "\t " + p + "\t " + commands[p].alias + "\t " + commands[p].desc + "\n ";
     }
@@ -111,16 +109,16 @@ function exec(cmd) {
  */
 function parseCommandLine(args) {
 
-  var parsed_cmds = [];
+  let parsed_cmds = [];
 
   if (args.length <= 2) {
     parsed_cmds.push(defaultCommand());
   } else {
 
-    var cli = args.slice(2);
+    let cli = args.slice(2);
 
-    var pos = 0;
-    var cmd;
+    let pos = 0;
+    let cmd;
 
     cli.forEach(function(element, index, array) {
 
@@ -134,13 +132,13 @@ function parseCommandLine(args) {
         cmd.args.push(cli[index]);
       } else {
 
-        if (keys[cli[index]] == "undefined") {
+        if (keys[cli[index]] === "undefined") {
           throw new Error("not support command:" + cli[index]);
         }
 
         pos = index;
         cmd = commands[cli[index]];
-        if (typeof cmd.args == 'undefined') {
+        if (typeof cmd.args === 'undefined') {
           cmd.args = [];
         }
         parsed_cmds.push(cmd);
@@ -159,7 +157,7 @@ function defaultCommand() {
     throw new Error("Error: there is no command at all!");
   }
 
-  for (var p in commands) {
+  for (let p in commands) {
     if (commands[p]["default"]) {
       return commands[p];
     }

@@ -1,7 +1,7 @@
 {
   "main": "index.js",
   "name": "xlsx2json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "convert complex xlsx to json",
   "homepage": "https://github.com/koalaylj/xlsx2json",
   "author": "于小懒",
@@ -27,8 +27,5 @@
     "moment": "^2.19.1",
     "node-xlsx": "^0.11.0",
     "xlsx": "^0.11.6"
-  },
-  "devDependencies": {
-    "mocha": "^2.4.5"
   }
 }
