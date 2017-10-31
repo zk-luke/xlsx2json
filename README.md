@@ -53,6 +53,7 @@ npm install
         /**
          * 数组的分隔符
          * 有时候特殊需要，在excel单元格中里面逗号被当做他用。
+         * 已过时，将在v0.5.x移除。参考列类型是数组类型时候表头设置。
          */
         "arraySeparator":","
     },
@@ -72,10 +73,10 @@ npm install
     * 命令行传参方式使用：执行 node `index.js --help` 查看。
 
 #### 示例1 test.xlsx
-| id   | desc         | flag   | nums#[] | words#[]    |   map#[]   | data#{}      | hero#[{}]                     |
+| id   | desc         | flag   | nums#[] | words#[]    |   map#[]|   | data#{}      | hero#[{}]                     |
 | ---- | -------------| ------ | ------- | ----------- | ---------- | ------------ | --------------------------    |
-| 123  | description  | true   | 1,2     | 哈哈,呵呵     | true,true  | a:123;b:45   | id:2;level:30,id:3;level:80  |
-| 456  | 描述          | false  | 3,5,8   | shit,my god | false,true | a:11;b:22    | id:9;level:38,id:17;level:100 |
+| 123  | description  | true   | 1,2     | 哈哈,呵呵     | true|true  | a:123;b:45   | id:2;level:30,id:3;level:80  |
+| 456  | 描述          | false  | 3,5,8   | shit,my god | false|true | a:11;b:22    | id:9;level:38,id:17;level:100 |
 
 
 输出如下：
@@ -132,7 +133,7 @@ npm install
 * 数字类型：此列表头的命名形式 `列名#number` 。
 * 日期类型：`列名#date` 。日期格式要符合标准日期格式。比如`YYYY/M/D H:m:s` or `YYYY/M/D` 等等。
 * 布尔类型：此列表头的命名形式 `列名#bool` 。
-* 基本类型数组：此列表头的命名形式 `列名#[]` 。
+* 基本类型数组：此列表头的命名形式 `列名#[]`，数组元素默认用逗号分隔(a,b,c),自定义数组元素分隔符`列名#[]|`(a|b|c)。
 * 对象：此列表头的命名形式 `列名#{}` 。
 * 对象数组：此列表头的命名形式`列名#[{}]` 。
 * 主键：：此列表头的命名形式`列名#id` 。
@@ -145,9 +146,9 @@ npm install
 ### TODO
 - [ ] 列为数组类型时候，嵌套复杂类型。
 - [ ] 列为对象类型时候，嵌套复杂类型。
-- [ ] 主外键支持。
+- [ ] 外键支持。
 - [ ] 将主分支的代码合并到npm分支。
-- [ ] 数组分隔符的设置放到表头，默认用逗号。
+- [x] 数组分隔符的设置放到表头，默认用逗号。
 
 ### 感谢
 某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json](https://github.com/mhaemmerle/excel-to-json)。
