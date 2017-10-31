@@ -156,3 +156,4 @@ npm install
 * windows/mac/linux都支持。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
+* 招募协作开发者，有时间帮助一起维护下这个项目，可以发issue或者到qq群里把你github邮箱告诉我。
