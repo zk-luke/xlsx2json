@@ -60,14 +60,14 @@ function exportJson(args) {
       }
 
       files.forEach(function(element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head - 1, config.xlsx.arraySeparator);
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest),config);
       });
 
     });
   } else {
     if (args instanceof Array) {
       args.forEach(function(element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config.xlsx.head - 1, config.xlsx.arraySeparator);
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest),config);
       });
     }
   }

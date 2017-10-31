@@ -1,8 +1,11 @@
 {
-    "xlsx": {
-        "head": 2,
-        "src": "./excel/**/[^~$]*.xlsx",
-        "dest": "./json",
-        "arraySeparator": "|"
-    }
+  "xlsx": {
+    "head": 2,
+    "src": "./excel/**/[^~$]*.xlsx",
+    "dest": "./json",
+    "arraySeparator": ","
+  },
+  "json": {
+    "uglify": false
+  }
 }

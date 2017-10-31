@@ -50,6 +50,13 @@ npm install
          * 有时候特殊需要，在excel单元格中里面逗号被当做他用。
          */
         "arraySeparator":","
+    },
+    "json": {
+      /**
+       * 导出的json是否需要压缩
+       * true:压缩，false:不压缩(便于阅读的格式)
+       */
+      "uglify": false
     }
 }
 ```
@@ -128,10 +135,11 @@ npm install
 * 对象属性使用分号`;`分割。
 
 ### TODO
-* [x]列为数组类型时候，嵌套复杂类型。
-* [x]列为对象类型时候，嵌套复杂类型。
-* [x]主外键支持。
-* [x]将主分支的代码合并到npm分支。
+- [ ] 列为数组类型时候，嵌套复杂类型。
+- [ ] 列为对象类型时候，嵌套复杂类型。
+- [ ] 主外键支持。
+- [ ] 将主分支的代码合并到npm分支。
+- [ ] 数组分隔符的设置放到表头，默认用逗号。
 
 ### 感谢
 某些想法也是借鉴了一个clojure的excel转json的开源项目 [excel-to-json](https://github.com/mhaemmerle/excel-to-json)。
