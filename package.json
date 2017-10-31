@@ -1,6 +1,6 @@
 {
-  "main": "index.js",
   "name": "xlsx2json",
+  "main": "index.js",
   "version": "0.3.0",
   "description": "convert complex xlsx to json",
   "homepage": "https://github.com/koalaylj/xlsx2json",
