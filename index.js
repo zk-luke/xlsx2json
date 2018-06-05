@@ -32,7 +32,7 @@ let keys = Object.keys(commands);
 
 for (let key in commands) {
   let alias_array = commands[key].alias;
-  alias_array.forEach((e) => {
+  alias_array.forEach(e => {
     alias_map[e] = key;
   });
 }
@@ -41,7 +41,7 @@ parsed_cmds = parseCommandLine(process.argv);
 
 // console.log("%j", parsed_cmds);
 
-parsed_cmds.forEach(function(e) {
+parsed_cmds.forEach(function (e) {
   exec(e);
 });
 
@@ -53,21 +53,21 @@ parsed_cmds.forEach(function(e) {
 function exportJson(args) {
 
   if (typeof args === 'undefined' || args.length === 0) {
-    glob(config.xlsx.src, function(err, files) {
+    glob(config.xlsx.src, function (err, files) {
       if (err) {
         console.error("exportJson error:", err);
         throw err;
       }
 
-      files.forEach(function(element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest),config);
+      files.forEach(function (element, index, array) {
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config);
       });
 
     });
   } else {
     if (args instanceof Array) {
-      args.forEach(function(element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest),config);
+      args.forEach(function (element, index, array) {
+        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config);
       });
     }
   }
@@ -120,7 +120,7 @@ function parseCommandLine(args) {
     let pos = 0;
     let cmd;
 
-    cli.forEach(function(element, index, array) {
+    cli.forEach(function (element, index, array) {
 
       //replace alias name with real name.
       if (element.indexOf('--') === -1 && element.indexOf('-') === 0) {
