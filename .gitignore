@@ -2,3 +2,4 @@
 package-lock.json
 json/
 node_modules/
+test/
