@@ -59,15 +59,15 @@ function exportJson(args) {
         throw err;
       }
 
-      files.forEach(function (element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config);
+      files.forEach(item => {
+        xlsx.toJson(path.join(__dirname, item), path.join(__dirname, config.xlsx.dest));
       });
 
     });
   } else {
     if (args instanceof Array) {
-      args.forEach(function (element, index, array) {
-        xlsx.toJson(path.join(__dirname, element), path.join(__dirname, config.xlsx.dest), config);
+      args.forEach(item => {
+        xlsx.toJson(path.join(__dirname, item), path.join(__dirname, config.xlsx.dest));
       });
     }
   }

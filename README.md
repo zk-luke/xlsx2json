@@ -2,16 +2,10 @@
 > 让excel支持复杂的json格式, 将xlsx文件转成json。
 
 ### 更新日志
-> 本次大版本更新为不兼容更新，不兼容部分涉及对象列、对象数组列和数组列。
-* 2018-6-5 v1.0.0
-  * feature: sheet名字以`!`开头则不导出此表。
-  * feature: 列名字以`!`开头则不导出此列。
-  * feature: 对象列支持对象嵌套，写法和JS中对象写法一致。
-  * feature: 数组可嵌套数组和对象，和JS中数组写法一致(除了最外层不需要写中括号[])。
-  * fix: 去掉自定义数组分隔符。
-  * fix: excel单元格空的时候json中无此列的key。
-  * modify: 去掉对象数组列类型，统一为数组。
-  * modify: 去掉无用依赖，更新依赖库，精简代码。
+* 2018-6-8 v1.1.0
+  - feature: 外键功能支持。
+  - feature: 引入了一个新的库，更新(`git pull`)完需要运行下`npm install`安装依赖。
+  - fix: 少量bug修复。
 
 ### 分支
 
@@ -53,7 +47,12 @@ npm install
         "dest": "./json"
     },
 
-    "ts":false,//是否导出d.ts（for typescript）
+    /**
+     * 是否导出d.ts（for typescript）
+     * 一张表格只导出一个d.ts文件
+     * true:压缩，false:不压缩(便于阅读的格式)
+     */
+    "ts":false,//
 
     "json": {
       /**
@@ -70,10 +69,10 @@ npm install
     * 执行`node index.js -h` 查看使用帮助。
     * 命令行传参方式使用：执行 node `index.js --help` 查看。
 
-#### 示例1(参考./excel/test.xlsx)
+#### 示例1 基本功能(参考./excel/basic.xlsx)   
 ![excel](./docs/image/excel-data.png)
 
-输出如下(因为设置了id列，输出hash map格式，如果无id列则输出数组格式)：
+输出如下(因为设置了`#id`列，输出`JsonHash`格式，如果无`#id`列则输出数组格式)：
 
 ```json
 {
@@ -112,15 +111,67 @@ npm install
 }
 ```
 
+如果将第一列的`id#id`换成`id#string`则会输出`JsonArray`格式：
+
+```json
+[
+  {
+    "id": "1111",
+    "name": "风暴之灵",
+    "slogen": ["风暴之灵已走远","在这场风暴里没有安全的港湾啊，昆卡！"],
+    "skill": {
+      "R": {
+        "name": "残影",
+        "冷却时间": [3.5,3.5,3.5,3.5],
+        "作用范围": 260,
+        "主动技能": true,
+        "levels": [
+          {"level": 1,"damage": 140,"mana": 70},
+          {"level": 2,"damage": 180,"mana": 80}
+        ]
+      },
+      "E": {
+        "name": "电子漩涡",
+        "冷却时间": [21,20,19,18],
+        "主动技能": true,
+        "levels": [
+          {"level": 1,"time": 1,"cost": 100,"distance": 100},
+          {"level": 2,"time": 1.5,"cost": 110,"distance": 150}
+        ]
+      }
+    }
+  },
+   {
+    "id": "1112",
+    "name": "幽鬼",
+    "slogen": null,
+    "skill": null
+  }
+]
+```
+
+### 示例2 复杂表格拆分(参考./excel/master-slave.xlsx)
+
+![excel](./docs/image/master-slave.png)
+
+如果一个表格某一列是`#[]` 或者`#{}`类型的时候，防止表格过于复杂，可将主表拆分。如上图所示。
+
+比如上图中的 `表1`中 `boss#{}`和 `reward#[]`列比较复杂，可以将之拆为三个表：`表2、3、4`，将`表1`中的 `boss#{}`拆成`表3`，`表1`中的`reward#[]`拆成表4。`表2`为主表，`表3、4`为从表。
+
+
+
 ### 支持以下数据类型
 
-* number 数字类型。
-* boolean  布尔。
-* string 字符串。
-* date 日期类型。
-* object 对象，同JS对象一致。
-* array  数组，同JS数组一致。
-* id 主键类型(当表中有id类型时，json会以hash map格式输出，否则以数组格式输出)。
+* `number` 数字类型。
+* `boolean`  布尔。
+* `string` 字符串。
+* `date` 日期类型。
+* `object `对象，同JS对象一致。
+* `array`  数组，同JS数组一致。
+* `id` 主键类型(当表中有id类型时，json会以hash格式输出，否则以array格式输出)。
+* `id[]` 主键数组，只存在于从表中。
+
+
 
 ### 表头规则
 
@@ -129,18 +180,40 @@ npm install
 * 数字类型：命名形式 `列名#number` 。
 * 日期类型：`列名#date` 。日期格式要符合标准日期格式。比如`YYYY/M/D H:m:s` or `YYYY/M/D` 等等。
 * 布尔类型：命名形式 `列名#bool` 。
-* 数组：命名形式 `列名#[]`。
-* 对象：命名形式 `列名#{}` 。
-* 主键：命名形式`列名#id` ,设置此将会输出为hash map 格式，否则为数组格式。
+* 数组：命名形式  `列名#[]`。
+* 对象：命名形式 `列名#{}`。
+* 主键：命名形式`列名#id` ,表中只能有一列。
+* 主键数组：命名形式`列名#id[]`，表中只能有一列，只存在于从表中。
 * 列名字以`!`开头则不导出此列。
+
+
+
+### sheet规则
+
+- sheet名字以`！`开头则不导出此表。
+- 从表的名字 `从表名字@主表名字`，主表必须在从表的前面。
+
+
+
+### 主从表相关规则(master/slave)
+
+- master表必须是hash类型，即必须有`#id`列。
+- slave表名字 `slave名字@master名字`，master表的顺序必须在slave表的前面。
+- slave表中必须要有`#id`列或者`#id[]`列。
+- 如果将master表中的`#{}列`拆分，则slave表中应为`#id`，值为master表的id。
+- 如果将master表中的`#[]列`拆分，则slave表中应为`#id[]`，值为master表的id。
+- 具体请看示例`./excel/master-salve.xlsx`。
+
+
 
 ### 注意事项
 
 * 解析excel字符串的时候用到`eval()`函数，如果生产环境下excel数据来自用户输入，会有注入风险请慎用。
-* 关键符号都是英文半角符号，和JS中一致。
-* 对象写法同JS中对象写法一致。
-* 数组写法同JS中数组写法一致(只是最外层数组不需要写中括号[])。
-* sheet名字以`！`开头则不导出此表。
+* 关键符号都是英文半角符号，和JSON要求一致。
+* 对象写法同JavaScript中对象写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
+* 数组写法同JavaScript中数组写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
+
+
 
 ### TODO
 
