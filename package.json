@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "glob": "3.2.9",
+    "lodash": "^4.17.10",
     "node-xlsx": "^0.12.0"
   }
 }
