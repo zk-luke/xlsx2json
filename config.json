@@ -4,7 +4,7 @@
     "src": "./excel/**/[^~$]*.xlsx",
     "dest": "./json"
   },
-  "ts": true,
+  "ts": false,
   "json": {
     "uglify": false
   }
