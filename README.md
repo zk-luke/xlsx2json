@@ -50,9 +50,9 @@ npm install
     /**
      * 是否导出d.ts（for typescript）
      * 一张表格只导出一个d.ts文件
-     * true:压缩，false:不压缩(便于阅读的格式)
+     * true:生成d.ts，false:不生成
      */
-    "ts":false,//
+    "ts":false,
 
     "json": {
       /**
@@ -216,8 +216,6 @@ npm install
 
 
 ### TODO
-
-- [ ] 外键支持。
 - [ ] 将主分支的代码合并到npm分支。
 
 ### 补充
