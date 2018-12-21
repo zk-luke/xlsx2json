@@ -1,12 +1,6 @@
 ### xlsx2json ([English Document](./docs/doc_en.md))
 > 让excel支持复杂的json格式, 将xlsx文件转成json。
 
-### 更新日志
-* 2018-6-8 v1.1.0
-  - feature: 外键功能支持。
-  - feature: 引入了一个新的库，更新(`git pull`)完需要运行下`npm install`安装依赖。
-  - fix: 少量bug修复。
-
 ### 使用说明
 * 目前只支持.xlsx格式，不支持.xls格式。
 * 本项目是基于nodejs的，所以需要先安装nodejs环境。
@@ -206,6 +200,7 @@ npm install
 * 关键符号都是英文半角符号，和JSON要求一致。
 * 对象写法同JavaScript中对象写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
 * 数组写法同JavaScript中数组写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
+* 如果导出的JSON文件尾行出现value都是null的数据，可能是因为excel中数据没删除干净，看控制台打印的行数据条目数和实际符不符合可判定。
 
 
 ### TODO
