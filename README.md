@@ -1,18 +1,6 @@
 ### xlsx2json ([English Document](./docs/doc_en.md))
 > 让excel支持复杂的json格式, 将xlsx文件转成json。
 
-### 更新日志
-* 2018-6-8 v1.1.0
-  - feature: 外键功能支持。
-  - feature: 引入了一个新的库，更新(`git pull`)完需要运行下`npm install`安装依赖。
-  - fix: 少量bug修复。
-
-### 分支
-
-* `master`为主分支,此分支用于发布版本，包含当前稳定代码，不要往主分支直接提交代码。
-* `dev`为开发分支,新功能bug修复等提交到此分支，待稳定后合并到`master`分支。
-* 如需当做npm模块引用请切换到`npm`分支(尚有功能未合并，暂时不可用)。
-
 ### 使用说明
 * 目前只支持.xlsx格式，不支持.xls格式。
 * 本项目是基于nodejs的，所以需要先安装nodejs环境。
@@ -212,15 +200,21 @@ npm install
 * 关键符号都是英文半角符号，和JSON要求一致。
 * 对象写法同JavaScript中对象写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
 * 数组写法同JavaScript中数组写法一致(不会JS的同学可理解为JSON的key不需要双引号其他和JSON一样)。
-
+* 如果导出的JSON文件尾行出现value都是null的数据，可能是因为excel中数据没删除干净，看控制台打印的行数据条目数和实际符不符合可判定。
 
 
 ### TODO
 - [ ] 将主分支的代码合并到npm分支。
 
-### 补充
+### 分支
+* `master`为主分支,此分支用于发布版本，包含当前稳定代码，不要往主分支直接提交代码。
+* `dev`为开发分支,新功能bug修复等提交到此分支，待稳定后合并到`master`分支。
+* 如需当做npm模块引用请切换到`npm`分支(尚有功能未合并，暂时不可用)。
 
+
+### 补充
 * 可在windows/mac/linux下运行。
 * 项目地址 [xlsx2json master](https://github.com/koalaylj/xlsx2json)
 * 如有问题可以到QQ群内讨论：223460081
 * 招募协作开发者，有时间帮助一起维护下这个项目，可以发issue或者到qq群里把你github邮箱告诉我。
+
